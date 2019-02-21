@@ -14,10 +14,10 @@ TBD
 TBD
 
 ## Team Members
-Eric Lin
-David Zheng
-Jephrey Liu
-Rebecca Hom
+* Eric Lin
+* David Zheng
+* Jephrey Liu
+* Rebecca Hom
 
 ## Installation
 TBD
