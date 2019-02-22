@@ -12,7 +12,7 @@ Now that he and his friends are taking more complex courses and getting jobs and
 Drawing With Friends would offer an easy and convenient answer to their struggle, and John and his friends would be able to join each other online from the comfort of their own rooms! John and his friends can sit down and play a quick game to iron out the stress of the semester by indulging in a nostalgic classic game.
 
 ## Use Cases
-TBA
+[!alt text](images/UserCases.png "User cases for the project")
 
 ## Domain Model Diagrams
 TBA
