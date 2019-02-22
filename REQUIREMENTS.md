@@ -14,5 +14,5 @@ Drawing With Friends would offer an easy and convenient answer to their struggle
 ## Use Cases
 ![use_cases](/images/UserCases.png "User cases for the project")
 
-## Domain Model Diagrams
-TBA
+## Domain Model Diagram
+![domain models](/images/DomainModel.jpg "Domain model diagrams for the project")
