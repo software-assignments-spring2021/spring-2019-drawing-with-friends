@@ -19,12 +19,13 @@ request if applicable
 - Keep dependencies to a minimum
 
 ### Team Standards
-- Attend biweekly sprints with iteration planning meetings at the start and 
+- Attend biweekly sprints iteration planning meetings at the start and 
 retrospective at the end
 - Accept constructive criticism
 - Be approachable and willing to help
 - Voice your ideas no matter how insignificant you think they might be
 - Discuss disagreements and reach a consensus
+- Attend daily remote standups on weekdays
 
 ### Our Values
 Our project is categorized by the following values and goals
