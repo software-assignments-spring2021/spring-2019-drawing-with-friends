@@ -25,7 +25,7 @@ retrospective at the end
 - Be approachable and willing to help
 - Voice your ideas no matter how insignificant you think they might be
 - Discuss disagreements and reach a consensus
-- Attend daily remote standups on weekdays
+- Attend daily remote standups on weekdays  
 
 ### Our Values
 Our project is categorized by the following values and goals

@@ -1,0 +1,26 @@
+{
+  "name": "Drawing with Friends Frontend",
+  "website": "https://letsdraw.me/",
+  "repository": "https://github.com/nyu-software-engineering/drawing-with-friends-frontend",
+  "success_url": "/",
+  "image": "heroku/nodejs",
+  "environments": {
+    "test": {
+      "scripts": {
+        "test-setup": "npm install",
+        "test": "npm run lint"
+      }
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "hobby"
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "mars/create-react-app"
+    }
+  ]
+}
