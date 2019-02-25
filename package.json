@@ -2,6 +2,7 @@
   "name": "drawing-with-friends",
   "version": "1.0.0",
   "description": "Drawing with friends online!",
+  "cacheDirectories": ["frontend/node_modules", "frontend/dist"],
   "scripts": {
     "postinstall": "npm install --prefix frontend",
     "start": "npm start --prefix frontend",

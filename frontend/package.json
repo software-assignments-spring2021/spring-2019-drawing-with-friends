@@ -27,15 +27,15 @@
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-react": "^7.12.4",
     "eslint-plugin-standard": "^4.0.0",
+    "html-webpack-plugin": "^3.2.0",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "style-loader": "^0.23.1",
+    "webpack": "^4.29.5",
+    "webpack-cli": "^3.2.3",
     "webpack-dev-server": "^3.2.0"
   },
   "dependencies": {
-    "node-static": "^0.7.11",
-    "html-webpack-plugin": "^3.2.0",
-    "webpack": "^4.29.5",
-    "webpack-cli": "^3.2.3"
+    "node-static": "^0.7.11"
   }
 }
