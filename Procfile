@@ -1,1 +1,1 @@
-web: bin/boot
+web: npm run --prefix frontend serve

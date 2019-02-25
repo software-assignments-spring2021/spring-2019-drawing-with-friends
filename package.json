@@ -6,7 +6,8 @@
     "postinstall": "npm install --prefix frontend",
     "start": "npm start --prefix frontend",
     "test": "npm run --prefix frontend lint",
-    "build": "npm run --prefix frontend build"
+    "build": "npm run --prefix frontend build",
+    "serve": "npm run --prefix frontend serve"
   },
   "repository": {
     "type": "git",
