@@ -18,5 +18,6 @@
   "bugs": {
     "url": "https://github.com/nyu-software-engineering/drawing-with-friends/issues"
   },
-  "homepage": "https://github.com/nyu-software-engineering/drawing-with-friends#readme"
+  "homepage": "https://github.com/nyu-software-engineering/drawing-with-friends#readme",
+  "dependencies": {}
 }

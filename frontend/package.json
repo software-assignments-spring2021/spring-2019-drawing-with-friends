@@ -36,8 +36,6 @@
     "webpack-dev-server": "^3.2.0"
   },
   "dependencies": {
-    "finalhandler": "^1.1.1",
-    "http": "0.0.0",
-    "serve-static": "^1.13.2"
+    "node-static": "^0.7.11"
   }
 }

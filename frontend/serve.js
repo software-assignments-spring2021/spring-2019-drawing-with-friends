@@ -1,14 +1,10 @@
-var finalhandler = require('finalhandler')
-var http = require('http')
-var serveStatic = require('serve-static')
+const server = require('node-static')
+const port = process.env.PORT || 3000
 
-// Serve up public/ftp folder
-var serve = serveStatic('dist/')
+const folder = new server.Server('./dist')
 
-// Create server
-var server = http.createServer(function onRequest (req, res) {
-  serve(req, res, finalhandler(req, res))
-})
-
-// Listen
-server.listen(process.env.PORT || 3000)
+require('http').createServer(function (request, response) {
+  request.addListener('end', function () {
+    folder.serve(request, response)
+  }).resume()
+}).listen(port)
