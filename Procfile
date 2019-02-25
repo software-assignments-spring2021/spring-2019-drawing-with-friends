@@ -1,1 +1,1 @@
-web: npm run --prefix frontend serve
+web: npm install --prefix frontend && npm run --prefix frontend serve
