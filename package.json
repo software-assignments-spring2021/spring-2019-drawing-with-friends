@@ -1,0 +1,20 @@
+{
+  "name": "drawing-with-friends",
+  "version": "1.0.0",
+  "description": "Drawing with friends online!",
+  "main": "frontend/src/index.jsx",
+  "scripts": {
+    "test": "npm run --prefix frontend lint",
+    "build": "npm run --prefix frontend build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nyu-software-engineering/drawing-with-friends.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nyu-software-engineering/drawing-with-friends/issues"
+  },
+  "homepage": "https://github.com/nyu-software-engineering/drawing-with-friends#readme"
+}
