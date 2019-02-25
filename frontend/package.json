@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.jsx",
   "scripts": {
+    "postinstall": "npm run build",
     "start": "webpack-dev-server --open --mode development",
     "build": "webpack --mode production",
     "lint": "eslint --ext .jsx,.js src --fix",
