@@ -5,8 +5,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Drawing with Friends</title>
+
+  <!-- Materialize CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!-- Materialize Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Customized CSS -->
+  <link href="./css/custom.css" rel="stylesheet">
 </head>
 <body>
-<section id="root"></section>
+
+  <div class="navbar-fixed">
+    <nav>
+      <div class="nav-wrapper light-blue">
+        <a href="#!" style="margin-left: 20px" class="brand-logo">Drawing with Friends</a>
+        <ul class="right hide-on-med-and-down">
+          <li><a class="waves-effect waves-light btn">Create Room <i class="material-icons right">color_lens</i></a></li>
+          <li><a class="waves-effect waves-light btn">Join Random <i class="material-icons right">colorize</i></a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <div class="container">
+    <video autoplay muted loop id="background">
+      <source src="videos/background.mp4" type="video/mp4">
+    </video>
+    <div id="content" class="s12">
+      <div style="margin-top: 30%">
+        <span>Logo here</span>
+        <section id="root"></section>
+        <a class="waves-effect waves-light btn-large"><i class="material-icons left">play_circle_outline</i>Play Now</a>
+        <a class="waves-effect waves-light btn-large"><i class="material-icons right">color_lens</i>Create Room</a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="page-footer light-blue">
+    <div class="footer-copyright">
+      <div class="container">
+      © 2019 Drawing with Friends
+      <a class="grey-text text-lighten-4 right" href="#!">About Us</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Materialize -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
 </body>
 </html>

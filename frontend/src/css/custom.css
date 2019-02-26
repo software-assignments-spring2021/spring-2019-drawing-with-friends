@@ -1,0 +1,23 @@
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+#background {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: -1;
+}
+
+.page-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
