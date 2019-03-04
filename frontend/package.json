@@ -19,6 +19,7 @@
     "chai": "^4.2.0",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.10.0",
+    "error-overlay-webpack-plugin": "^0.1.6",
     "mocha": "^6.0.2",
     "nyc": "^13.3.0",
     "webpack-dev-server": "^3.2.0"
