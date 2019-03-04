@@ -2,9 +2,8 @@ import React from 'react'
 import { describe } from 'mocha'
 import { expect } from 'chai'
 import { configure, shallow } from 'enzyme'
-import HelloWorld from '../../src/components/HelloWorld'
-
 import Adapter from 'enzyme-adapter-react-16'
+import HelloWorld from '../../src/components/HelloWorld'
 
 configure({ adapter: new Adapter() })
 

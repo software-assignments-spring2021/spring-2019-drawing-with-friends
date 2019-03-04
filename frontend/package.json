@@ -7,7 +7,7 @@
     "postinstall": "npm run build",
     "start": "webpack-dev-server --open --mode development",
     "build": "webpack --mode production",
-    "test": "mocha --require @babel/register test",
+    "test": "nyc --extension .jsx mocha --require @babel/register 'test/**/*.{js,jsx}'",
     "lint": "eslint --ext .jsx,.js src --fix",
     "serve": "node serve.js"
   },
@@ -20,6 +20,7 @@
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.10.0",
     "mocha": "^6.0.2",
+    "nyc": "^13.3.0",
     "webpack-dev-server": "^3.2.0"
   },
   "dependencies": {
