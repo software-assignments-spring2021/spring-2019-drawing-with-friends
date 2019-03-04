@@ -1,8 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import HelloWorld from './components/HelloWorld.jsx'
 
-const Index = () => {
-  return <div>Hello World!</div>
+class App extends React.Component {
+  render () {
+    return <HelloWorld />
+  }
 }
 
-ReactDOM.render(<Index />, document.getElementById('root'))
+ReactDOM.render(<App />, document.getElementById('root'))

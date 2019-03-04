@@ -17,7 +17,12 @@ to add something to our project.
 React
 
 ## Testing
-TBD
+### Frontend
+- Mocha
+- Chai
+- Enzyme
+
+Run tests: `npm test`
 
 ## Team Members
 * Eric Lin

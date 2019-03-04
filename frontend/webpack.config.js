@@ -1,5 +1,5 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin')
-const CopyPlugin = require('copy-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   entry: './src/index.jsx',
@@ -28,7 +28,7 @@ module.exports = {
     }),
     new CopyPlugin([
       { from: './src/css', to: './css' },
-      { from: './src/videos', to: './videos' },
-    ]),
+      { from: './src/videos', to: './videos' }
+    ])
   ]
 }
