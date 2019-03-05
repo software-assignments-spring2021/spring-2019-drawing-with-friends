@@ -1,5 +1,6 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
+const ErrorOverlayPlugin = require('error-overlay-webpack-plugin')
 
 module.exports = {
   entry: './src/index.jsx',
@@ -29,6 +30,8 @@ module.exports = {
     new CopyPlugin([
       { from: './src/css', to: './css' },
       { from: './src/videos', to: './videos' }
-    ])
-  ]
+    ]),
+    new ErrorOverlayPlugin()
+  ],
+  devtool: 'cheap-module-source-map'
 }
