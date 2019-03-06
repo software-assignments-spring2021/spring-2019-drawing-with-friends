@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/nyu-software-engineering/drawing-with-friends#readme",
   "dependencies": {
+    "moment": "^2.24.0",
     "socket.io": "^2.2.0"
   }
 }
