@@ -16,7 +16,7 @@ console.log("Express HTTP and Socket.io now serving on port " + port);
 app.use(express.static('dist'));
 
 io.on("connection", (client) => {
-  let clientName = client.handshake.headers.host;
+  let clientName = client.handshake.address;
   console.log("Client " + clientName + " connected to chatbox");
 
   client.on("send chat", (message) => {
