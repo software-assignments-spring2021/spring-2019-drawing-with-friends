@@ -21,3 +21,18 @@ main {
   bottom: 0;
   width: 100%;
 }
+
+.chatbox {
+  background-color: rgba(255, 255, 255, 0.7);
+  border-color: gray;
+  border-width: 5px;
+}
+
+.chatbox-send {
+  margin-top: 20px;
+}
+
+#chatbox-messages {
+  height: 40vh;
+  overflow: scroll;
+}

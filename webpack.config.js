@@ -3,7 +3,7 @@ const CopyPlugin = require('copy-webpack-plugin')
 const ErrorOverlayPlugin = require('error-overlay-webpack-plugin')
 
 module.exports = {
-  entry: './src/index.jsx',
+  entry: './src/react/index.jsx',
   module: {
     rules: [
       {
@@ -24,12 +24,13 @@ module.exports = {
   },
   plugins: [
     new HtmlWebPackPlugin({
-      template: './src/index.html',
+      template: './src/react/index.html',
       filename: './index.html'
     }),
     new CopyPlugin([
-      { from: './src/css', to: './css' },
-      { from: './src/videos', to: './videos' }
+      { from: './src/react/css', to: './css' },
+      { from: './src/react/videos', to: './videos' },
+      { from: './src/react/socketio', to: './socketio' }
     ]),
     new ErrorOverlayPlugin()
   ],
