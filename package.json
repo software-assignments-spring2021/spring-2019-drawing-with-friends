@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "postinstall": "npm run build",
+    "heroku-postbuild": "npm run build",
     "start": "webpack-dev-server --open --mode development",
     "build": "webpack --mode production",
     "test": "nyc --extension .jsx mocha --require @babel/register 'test/**/*.{js,jsx}'",
