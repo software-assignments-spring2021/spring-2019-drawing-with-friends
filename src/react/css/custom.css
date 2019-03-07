@@ -26,6 +26,7 @@ main {
   background-color: rgba(255, 255, 255, 0.7);
   border-color: gray;
   border-width: 5px;
+  overflow: hidden;
 }
 
 .chatbox-send {
@@ -34,5 +35,5 @@ main {
 
 #chatbox-messages {
   height: 40vh;
-  overflow: scroll;
+  overflow-y: scroll;
 }
