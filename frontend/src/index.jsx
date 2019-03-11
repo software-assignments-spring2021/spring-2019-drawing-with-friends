@@ -7,11 +7,11 @@ import NavigationBar from './components/NavigationBar.jsx'
 class App extends React.Component {
   render () {
     return (
-      <React.Fragment>
+      <>
         <NavigationBar/>
         <HelloWorld/>
         <Footer/>
-      </React.Fragment>
+      </>
     )
   }
 }
