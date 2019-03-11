@@ -1,6 +1,6 @@
 /* eslint-disable */
 // Variables
-let tool = "circle"; // Currently selected tool "circle", "square", "fill")
+let tool = "circle"; // Currently selected tool "circle", "square", "eraser")
 let color = 0; // Currently selected color (0 = black, 255 = white)
 let size = 5; // Currently selected brush size
 let colors = { //List of colors and their RGB values
@@ -22,6 +22,23 @@ let colors = { //List of colors and their RGB values
   "black": [0, 0, 0]
 };
 
+  // Set of toolbar icons
+let small = null;
+let medium = null;
+let large = null;
+let circle = null;
+let square = null;
+let eraser = null;
+
+function preload() {
+  small = loadImage('Small.png');
+  medium = loadImage('Medium.png');
+  large = loadImage('Large.png');
+  circle = loadImage('Circle.png');
+  square = loadImage('Square.png');
+  eraser = loadImage('Eraser.png');
+}
+
 function setup() {
   // Set up the canvas 
   createCanvas(600, 600);
@@ -30,10 +47,13 @@ function setup() {
 function draw() {
   noStroke(); // Remove default stroke line
   fill(color); // Set color
-  if (mouseIsPressed) {
+  if (mouseIsPressed && tool === "circle") {
     circle(mouseX, mouseY, size);
+  } else if (mouseIsPressed && tool === "square") {
+    square(mouseX, mouseY, size);
   }
 
+  drawToolbar();
   drawColorPalette();
 }
 
@@ -46,6 +66,12 @@ function drawColorPalette() {
     square(xPosition, 20, 30);
     xPosition += 30;
   }
+}
+
+function drawToolbar() {
+  fill(178);
+  rect(10, 75, 30, 400);
+
 }
 
 function mousePressed() {
