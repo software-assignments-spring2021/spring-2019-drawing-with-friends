@@ -1,111 +1,156 @@
 /* eslint-disable */
-// Variables
-let tool = "circle"; // Currently selected tool "circle", "square", "eraser")
-let color = 0; // Currently selected color (0 = black, 255 = white)
-let size = 5; // Currently selected brush size
-let colors = { //List of colors and their RGB values
-  "white": [255, 255, 255],
-  "yellow": [255, 255, 0],
-  "orange": [255, 165, 0],
-  "red": [255, 0, 0],
-  "magenta": [255, 0, 255],
-  "purple": [85, 26, 139],
-  "blue": [0, 0, 255],
-  "cyan": [0, 255, 255],
-  "green": [0, 255, 0], 
-  "darkGreen": [0, 100, 0],
-  "brown": [91, 62, 32],
-  "tan": [153, 106, 27],
-  "lightGray": [211, 211, 211],
-  "mediumGray": [128, 128, 128],
-  "darkGray": [68, 68, 68],
-  "black": [0, 0, 0]
-};
+export default function canvas(p) {
+  // Variables
+  let tool = "circle"; // Currently selected tool "circle", "square", "eraser")
+  let color = 0; // Currently selected color (0 = black, 255 = white)
+  let size = 8; // Currently selected brush size
+  let colors = { //List of colors and their RGB values
+    "white": [255, 255, 255],
+    "yellow": [255, 255, 0],
+    "orange": [255, 165, 0],
+    "red": [255, 0, 0],
+    "magenta": [255, 0, 255],
+    "purple": [85, 26, 139],
+    "blue": [0, 0, 255],
+    "cyan": [0, 255, 255],
+    "green": [0, 255, 0], 
+    "darkGreen": [0, 100, 0],
+    "brown": [91, 62, 32],
+    "tan": [153, 106, 27],
+    "lightGray": [211, 211, 211],
+    "mediumGray": [128, 128, 128],
+    "darkGray": [68, 68, 68],
+    "black": [0, 0, 0]
+  };
 
-  // Set of toolbar icons
-let small = null;
-let medium = null;
-let large = null;
-let circle = null;
-let square = null;
-let eraser = null;
+    // Set of toolbar icons
+  let small = null;
+  let medium = null;
+  let large = null;
+  let circle = null;
+  let square = null;
+  let eraser = null;
 
-function preload() {
-  small = loadImage('Small.png');
-  medium = loadImage('Medium.png');
-  large = loadImage('Large.png');
-  circle = loadImage('Circle.png');
-  square = loadImage('Square.png');
-  eraser = loadImage('Eraser.png');
-}
-
-function setup() {
-  // Set up the canvas 
-  createCanvas(600, 600);
-}
-
-function draw() {
-  noStroke(); // Remove default stroke line
-  fill(color); // Set color
-  if (mouseIsPressed && tool === "circle") {
-    circle(mouseX, mouseY, size);
-  } else if (mouseIsPressed && tool === "square") {
-    square(mouseX, mouseY, size);
+  p.preload = function() {
+    small = p.loadImage('https://raw.githubusercontent.com/nyu-software-engineering/drawing-with-friends/user-story/7/task/35/initialize-canvas/frontend/src/components/Canvas/Small.png');
+    medium = p.loadImage('https://raw.githubusercontent.com/nyu-software-engineering/drawing-with-friends/user-story/7/task/35/initialize-canvas/frontend/src/components/Canvas/Medium.png');
+    large = p.loadImage('https://raw.githubusercontent.com/nyu-software-engineering/drawing-with-friends/user-story/7/task/35/initialize-canvas/frontend/src/components/Canvas/Large.png');
+    circle = p.loadImage('https://raw.githubusercontent.com/nyu-software-engineering/drawing-with-friends/user-story/7/task/35/initialize-canvas/frontend/src/components/Canvas/Circle.png');
+    square = p.loadImage('https://raw.githubusercontent.com/nyu-software-engineering/drawing-with-friends/user-story/7/task/35/initialize-canvas/frontend/src/components/Canvas/Square.png');
+    eraser = p.loadImage('https://raw.githubusercontent.com/nyu-software-engineering/drawing-with-friends/user-story/7/task/35/initialize-canvas/frontend/src/components/Canvas/Eraser.png');
   }
 
-  drawToolbar();
-  drawColorPalette();
-}
+  p.setup = function() {
+    // Set up the canvas 
+    p.createCanvas(600, 600);  
+  }
+
+  p.draw = function() {
+    p.noStroke(); // Remove default stroke line
+    p.fill(color); // Set color
+    if (p.mouseIsPressed && tool === "circle") {
+      p.ellipse(p.mouseX, p.mouseY, size, size);
+    } else if (p.mouseIsPressed && tool === "square") {
+      p.rect(p.mouseX-(size/2), p.mouseY-(size/2), size, size);
+    } else if (p.mouseIsPressed && tool === "eraser") {
+      color = [...colors["white"]];
+      p.ellipse(p.mouseX, p.mouseY, size, size);
+    }
+
+    drawToolbar();
+    drawEraseAll();
+    drawColorPalette();
+  }
 
 function drawColorPalette() {
-  stroke(0);
+  p.stroke(0);
   let xPosition = 60;
 
   for (let color in colors) {
-    fill(...colors[color]);
-    square(xPosition, 20, 30);
+    p.fill(...colors[color]);
+    p.rect(xPosition, 20, 30, 30);
     xPosition += 30;
   }
 }
 
 function drawToolbar() {
-  fill(178);
-  rect(10, 75, 30, 400);
+  p.fill(178);
+  p.rect(5, 65, 40, 250);
 
+  p.imageMode(p.CENTER);
+  p.image(small, 13, 85, 25, 25);
+  p.image(medium, 13, 115, 25, 25);
+  p.image(large, 13, 145, 25, 25);
+
+  p.image(circle, 13, 210, 25, 25);
+  p.image(square, 13, 240, 25, 25);
+  p.image(eraser, 13, 270, 25, 25);
 }
 
-function mousePressed() {
-  if (mouseX > 60 && mouseX <= 90 && mouseY > 20 && mouseY <= 50) {
-    color = [...colors["white"]];
-  } else if (mouseX > 90 && mouseX <= 120 && mouseY > 20 && mouseY <= 50) {
-    color = [...colors["yellow"]];
-  } else if (mouseX > 120 && mouseX <= 150 && mouseY > 20 && mouseY <= 50) {
-    color = [...colors["orange"]];
-  } else if (mouseX > 150 && mouseX <= 180 && mouseY > 20 && mouseY <= 50) {
-    color = [...colors["red"]];
-  } else if (mouseX > 180 && mouseX <= 210 && mouseY > 20 && mouseY <= 50) {
-    color = [...colors["magenta"]];
-  } else if (mouseX > 210 && mouseX <= 240 && mouseY > 20 && mouseY <= 50) {
-    color = [...colors["purple"]];
-  } else if (mouseX > 240 && mouseX <= 270 && mouseY > 20 && mouseY <= 50) {
-    color = [...colors["blue"]];
-  } else if (mouseX > 270 && mouseX <= 300 && mouseY > 20 && mouseY <= 50) {
-    color = [...colors["cyan"]];
-  } else if (mouseX > 300 && mouseX <= 330 && mouseY > 20 && mouseY <= 50) {
-    color = [...colors["green"]];
-  } else if (mouseX > 330 && mouseX <= 360 && mouseY > 20 && mouseY <= 50) {
-    color = [...colors["darkGreen"]];
-  } else if (mouseX > 360 && mouseX <= 390 && mouseY > 20 && mouseY <= 50) {
-    color = [...colors["brown"]];
-  } else if (mouseX > 390 && mouseX <= 420 && mouseY > 20 && mouseY <= 50) {
-    color = [...colors["tan"]];
-  } else if (mouseX > 420 && mouseX <= 450 && mouseY > 20 && mouseY <= 50) {
-    color = [...colors["lightGray"]];
-  } else if (mouseX > 450 && mouseX <= 480 && mouseY > 20 && mouseY <= 50) {
-    color = [...colors["mediumGray"]];
-  } else if (mouseX > 480 && mouseX <= 510 && mouseY > 20 && mouseY <= 50) {
-    color = [...colors["darkGray"]];
-  } else if (mouseX > 510 && mouseX <= 540 && mouseY > 20 && mouseY <= 50) {
-    color = [...colors["black"]];
+function drawEraseAll() {
+  p.rect(250, 60, 100, 30);
+  p.fill(0);
+  p.textSize(16);
+  p.text("Erase All", 268, 83);
+}
+
+  p.mousePressed = function() {
+    // Color selection
+    if (p.mouseX > 60 && p.mouseX <= 90 && p.mouseY > 20 && p.mouseY <= 50) {
+      color = [...colors["white"]];
+    } else if (p.mouseX > 90 && p.mouseX <= 120 && p.mouseY > 20 && p.mouseY <= 50) {
+      color = [...colors["yellow"]];
+    } else if (p.mouseX > 120 && p.mouseX <= 150 && p.mouseY > 20 && p.mouseY <= 50) {
+      color = [...colors["orange"]];
+    } else if (p.mouseX > 150 && p.mouseX <= 180 && p.mouseY > 20 && p.mouseY <= 50) {
+      color = [...colors["red"]];
+    } else if (p.mouseX > 180 && p.mouseX <= 210 && p.mouseY > 20 && p.mouseY <= 50) {
+      color = [...colors["magenta"]];
+    } else if (p.mouseX > 210 && p.mouseX <= 240 && p.mouseY > 20 && p.mouseY <= 50) {
+      color = [...colors["purple"]];
+    } else if (p.mouseX > 240 && p.mouseX <= 270 && p.mouseY > 20 && p.mouseY <= 50) {
+      color = [...colors["blue"]];
+    } else if (p.mouseX > 270 && p.mouseX <= 300 && p.mouseY > 20 && p.mouseY <= 50) {
+      color = [...colors["cyan"]];
+    } else if (p.mouseX > 300 && p.mouseX <= 330 && p.mouseY > 20 && p.mouseY <= 50) {
+      color = [...colors["green"]];
+    } else if (p.mouseX > 330 && p.mouseX <= 360 && p.mouseY > 20 && p.mouseY <= 50) {
+      color = [...colors["darkGreen"]];
+    } else if (p.mouseX > 360 && p.mouseX <= 390 && p.mouseY > 20 && p.mouseY <= 50) {
+      color = [...colors["brown"]];
+    } else if (p.mouseX > 390 && p.mouseX <= 420 && p.mouseY > 20 && p.mouseY <= 50) {
+      color = [...colors["tan"]];
+    } else if (p.mouseX > 420 && p.mouseX <= 450 && p.mouseY > 20 && p.mouseY <= 50) {
+      color = [...colors["lightGray"]];
+    } else if (p.mouseX > 450 && p.mouseX <= 480 && p.mouseY > 20 && p.mouseY <= 50) {
+      color = [...colors["mediumGray"]];
+    } else if (p.mouseX > 480 && p.mouseX <= 510 && p.mouseY > 20 && p.mouseY <= 50) {
+      color = [...colors["darkGray"]];
+    } else if (p.mouseX > 510 && p.mouseX <= 540 && p.mouseY > 20 && p.mouseY <= 50) {
+      color = [...colors["black"]];
+    }
+
+    // Size selection
+    if (p.mouseX > 13 && p.mouseX < 38 && p.mouseY > 85 && p.mouseY < 110) {
+      size = 8; // Small
+    } else if (p.mouseX > 13 && p.mouseX < 38 && p.mouseY > 110 && p.mouseY < 135) {
+      size = 15; // Medium
+    } else if (p.mouseX > 13 && p.mouseX < 38 && p.mouseY > 135 && p.mouseY < 160) {
+      size = 25; // Large
+    }
+
+    // Tool selection
+    if (p.mouseX > 13 && p.mouseX < 38 && p.mouseY > 215 && p.mouseY < 235) {
+      tool = "circle";
+    } else if (p.mouseX > 13 && p.mouseX < 38 && p.mouseY > 240 && p.mouseY < 265) {
+      tool = "square";
+    } else if (p.mouseX > 13 && p.mouseX < 38 && p.mouseY > 275 && p.mouseY < 295) {
+      tool = "eraser";
+    }
+
+    // Erase all
+    if (p.mouseX > 250 && p.mouseX < 350 && p.mouseY > 65 && p.mouseY < 90) {
+      p.background(255);
+    }
   }
 }
