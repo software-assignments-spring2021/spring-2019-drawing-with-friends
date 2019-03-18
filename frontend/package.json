@@ -4,12 +4,10 @@
   "description": "",
   "main": "index.jsx",
   "scripts": {
-    "postinstall": "npm run build",
     "start": "webpack-dev-server --open --mode development",
     "build": "webpack --mode production",
     "test": "nyc --extension .jsx mocha --require @babel/register 'test/**/*.{js,jsx}'",
-    "lint": "eslint --ext .jsx,.js src --fix",
-    "serve": "node serve.js"
+    "lint": "eslint --ext .jsx,.js src --fix"
   },
   "keywords": [],
   "author": "",
@@ -46,6 +44,7 @@
   "dependencies": {
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
-    "react-router-dom": "^4.3.1"
+    "react-router-dom": "^4.3.1",
+    "socket.io-client": "^2.2.0"
   }
 }
