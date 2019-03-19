@@ -10,20 +10,20 @@ jobs:
       script:
         - npm test
     - name: Build frontend
-        install:
-          - cd frontend
-          - npm install
-        script:
-          - npm run build
+      install:
+        - cd frontend
+        - npm install
+      script:
+        - npm run build
     - name: Run backend tests
-        install:
-          - cd backend
-          - npm install
-        script:
-          - npm test
+      install:
+        - cd backend
+        - npm install
+      script:
+        - npm test
     - name: Build backend
-        install:
-          - cd backend
-          - npm install
-        script:
-          - npm run build
+      install:
+        - cd backend
+        - npm install
+      script:
+        - npm run build
