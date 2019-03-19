@@ -1,0 +1,21 @@
+{
+  "name": "Drawing with Friends",
+  "website": "https://letsdraw.me/",
+  "repository": "https://github.com/nyu-software-engineering/drawing-with-friends",
+  "success_url": "/",
+  "image": "heroku/nodejs",
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "free"
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "https://github.com/timanovsky/subdir-heroku-buildpack.git"
+    },
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
