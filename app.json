@@ -4,6 +4,11 @@
   "repository": "https://github.com/nyu-software-engineering/drawing-with-friends",
   "success_url": "/",
   "image": "heroku/nodejs",
+  "env": {
+    "PROJECT_PATH": {
+      "value": "backend"
+    }
+  },
   "formation": {
     "web": {
       "quantity": 1,
