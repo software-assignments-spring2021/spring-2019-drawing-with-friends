@@ -1,36 +1,29 @@
 language: node_js
 node_js:
   - "node"
-stages:
-  - name: Test
-  - name: Build
 jobs:
   include:
-    - stage: Test
-      name: Run frontend tests
+    - name: Run frontend tests
       install:
         - cd frontend
         - npm install
       script:
         - npm test
-    - stage: Build
-      name: Build frontend
-      install:
-        - cd frontend
-        - npm install
-      script:
-        - npm build
-    - stage: Test
-      name: Run backend tests
-      install:
-        - cd backend
-        - npm install
-      script:
-        - npm test
-    - stage: Build
-      name: Build backend
-      install:
-        - cd backend
-        - npm install
-      script:
-        - npm build
+    - name: Build frontend
+        install:
+          - cd frontend
+          - npm install
+        script:
+          - npm run build
+    - name: Run backend tests
+        install:
+          - cd backend
+          - npm install
+        script:
+          - npm test
+    - name: Build backend
+        install:
+          - cd backend
+          - npm install
+        script:
+          - npm run build
