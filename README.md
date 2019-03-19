@@ -16,7 +16,8 @@ See our [guidelines for contributing](./CONTRIBUTING.md) if you would like
 to add something to our project.
 
 ## Built With
-React
+- React
+- Node js
 
 ## Testing
 ### Frontend
