@@ -48,6 +48,7 @@ export default function canvas(p) {
   p.draw = function() {
     p.noStroke(); // Remove default stroke line
     p.fill(color); // Set color
+
     if (p.mouseIsPressed && tool === "circle") {
       p.ellipse(p.mouseX, p.mouseY, size, size);
     } else if (p.mouseIsPressed && tool === "square") {
@@ -78,13 +79,13 @@ function drawToolbar() {
   p.rect(5, 65, 40, 250);
 
   p.imageMode(p.CENTER);
-  p.image(small, 13, 85, 25, 25);
-  p.image(medium, 13, 115, 25, 25);
-  p.image(large, 13, 145, 25, 25);
+  p.image(small, 25, 85, 25, 25);
+  p.image(medium, 25, 115, 25, 25);
+  p.image(large, 25, 145, 25, 25);
 
-  p.image(circle, 13, 210, 25, 25);
-  p.image(square, 13, 240, 25, 25);
-  p.image(eraser, 13, 270, 25, 25);
+  p.image(circle, 25, 210, 25, 25);
+  p.image(square, 25, 240, 25, 25);
+  p.image(eraser, 25, 270, 25, 25);
 }
 
 function drawEraseAll() {
@@ -131,20 +132,20 @@ function drawEraseAll() {
     }
 
     // Size selection
-    if (p.mouseX > 13 && p.mouseX < 38 && p.mouseY > 85 && p.mouseY < 110) {
+    if (p.mouseX > 13 && p.mouseX < 38 && p.mouseY > 77 && p.mouseY < 98) {
       size = 8; // Small
-    } else if (p.mouseX > 13 && p.mouseX < 38 && p.mouseY > 110 && p.mouseY < 135) {
+    } else if (p.mouseX > 13 && p.mouseX < 38 && p.mouseY > 105 && p.mouseY < 128) {
       size = 15; // Medium
-    } else if (p.mouseX > 13 && p.mouseX < 38 && p.mouseY > 135 && p.mouseY < 160) {
+    } else if (p.mouseX > 13 && p.mouseX < 38 && p.mouseY > 137 && p.mouseY < 157) {
       size = 25; // Large
     }
 
     // Tool selection
-    if (p.mouseX > 13 && p.mouseX < 38 && p.mouseY > 215 && p.mouseY < 235) {
+    if (p.mouseX > 13 && p.mouseX < 38 && p.mouseY > 199 && p.mouseY < 223) {
       tool = "circle";
-    } else if (p.mouseX > 13 && p.mouseX < 38 && p.mouseY > 240 && p.mouseY < 265) {
+    } else if (p.mouseX > 13 && p.mouseX < 38 && p.mouseY > 232 && p.mouseY < 252) {
       tool = "square";
-    } else if (p.mouseX > 13 && p.mouseX < 38 && p.mouseY > 275 && p.mouseY < 295) {
+    } else if (p.mouseX > 13 && p.mouseX < 38 && p.mouseY > 260 && p.mouseY < 282) {
       tool = "eraser";
     }
 

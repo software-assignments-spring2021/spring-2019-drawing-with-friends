@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default class NavigationBar extends React.Component {
   render () {
@@ -6,10 +7,10 @@ export default class NavigationBar extends React.Component {
       <div className="navbar-fixed">
         <nav>
           <div className="nav-wrapper light-blue">
-            <a href="#!" style={{ marginLeft: '20px' }} className="brand-logo">Drawing with Friends</a>
+            <Link to="#!" style={{ marginLeft: '20px' }} className="brand-logo">Drawing with Friends</Link>
             <ul className="right hide-on-med-and-down">
-              <li><a className="waves-effect waves-light btn">Create Room <i
-                className="material-icons right">color_lens</i></a></li>
+              <li><Link to="/game" className="waves-effect waves-light btn">Create Room <i
+                className="material-icons right">color_lens</i></Link></li>
               <li><a className="waves-effect waves-light btn">Join Random <i
                 className="material-icons right">colorize</i></a></li>
             </ul>
