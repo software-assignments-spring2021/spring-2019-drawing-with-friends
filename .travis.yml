@@ -1,27 +1,37 @@
 language: node_js
 node_js:
   - "node"
+branches:
+  only:
+    - master
+stages:
+  - test
+  - build
 jobs:
   include:
-    - name: Run frontend tests
+    - stage: test
+      name: Run frontend tests
       install:
         - cd frontend
         - npm install
       script:
         - npm test
-    - name: Build frontend
-      install:
-        - cd frontend
-        - npm install
-      script:
-        - npm run build
-    - name: Run backend tests
+    - stage: test
+      name: Run backend tests
       install:
         - cd backend
         - npm install
       script:
         - npm test
-    - name: Build backend
+    - stage: build
+      name: Build frontend
+      install:
+        - cd frontend
+        - npm install
+      script:
+        - npm run build
+    - stage: build
+      name: Build backend
       install:
         - cd backend
         - npm install
