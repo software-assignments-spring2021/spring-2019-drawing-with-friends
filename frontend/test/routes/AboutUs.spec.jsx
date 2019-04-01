@@ -3,7 +3,7 @@ import { describe } from 'mocha'
 import { expect } from 'chai'
 import { configure, shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-import AboutUs from '../../src/routes/AboutUs'
+import AboutUs from '../../src/components/AboutUs'
 
 configure({ adapter: new Adapter() })
 
