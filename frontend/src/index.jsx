@@ -29,5 +29,5 @@ ReactDOM.render(
   <BrowserRouter>
     <App/>
   </BrowserRouter>,
-  document.getElementById('main-container')
+  document.getElementById('root')
 )

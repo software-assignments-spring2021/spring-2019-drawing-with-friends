@@ -7,7 +7,7 @@ export default class NavigationBar extends React.Component {
       <div className="navbar-fixed">
         <nav>
           <div className="nav-wrapper light-blue">
-            <Link to="#!" style={{ marginLeft: '20px' }} className="brand-logo">Drawing with Friends</Link>
+            <Link to="/" style={{ marginLeft: '20px' }} className="brand-logo">Drawing with Friends</Link>
             <ul className="right hide-on-med-and-down">
               <li><Link to="/game" className="waves-effect waves-light btn">Create Room <i
                 className="material-icons right">color_lens</i></Link></li>
