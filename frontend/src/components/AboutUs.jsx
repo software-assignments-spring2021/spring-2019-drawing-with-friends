@@ -1,9 +1,9 @@
-import React from 'react'
+import * as React from 'react'
 
 export default class AboutUs extends React.Component {
   render () {
     return (
-      <>
+      <div>
         <h1>About Us!</h1>
         <p>Drawing With Friends, headquartered in New York, New York, focuses on providing
           entertaining while
@@ -23,7 +23,7 @@ export default class AboutUs extends React.Component {
           field of
           Computer
           Science, forming the best source of entertaining on the web.</p>
-      </>
+      </div>
     )
   }
 }
