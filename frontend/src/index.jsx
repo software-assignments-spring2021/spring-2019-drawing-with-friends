@@ -5,6 +5,7 @@ import HelloWorld from './components/HelloWorld.jsx'
 import Footer from './components/Footer.jsx'
 import NavigationBar from './components/NavigationBar.jsx'
 import Canvas from './components/Canvas/CanvasWrapper.jsx'
+import AboutUs from './components/AboutUs.jsx'
 
 class App extends React.Component {
   render () {
@@ -13,8 +14,9 @@ class App extends React.Component {
         <NavigationBar/>
 
         <Switch>
-          <Route exact path="/game" component={Canvas}/>
-          <Route exact path="/" component={HelloWorld}/>
+          <Route path="/game" component={Canvas}/>
+          <Route path="/about" component={AboutUs}/>
+          <Route path="/" component={HelloWorld}/>
         </Switch>
 
         <Footer/>
