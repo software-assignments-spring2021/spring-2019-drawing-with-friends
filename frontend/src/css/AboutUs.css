@@ -1,0 +1,20 @@
+.aboutContainer {
+  background-color: #00b6b0;
+
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  justify-items: center;
+  align-items: center;
+  height: 100vh;  
+}
+
+.aboutTitle {
+  grid-column: 2 / 10;
+  grid-row: 2;
+}
+
+.aboutDescription {
+  grid-column: 2 / 10;
+  grid-row: 3;
+}
