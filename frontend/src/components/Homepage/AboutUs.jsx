@@ -8,7 +8,6 @@ export default class AboutUs extends React.Component {
         <div className='aboutTitle'>
           <h2>ABOUT US</h2>
         </div>
-
         <div className='aboutDescription'>
           <p>Drawing With Friends, headquartered in New York, New York, focuses on providing entertaining while
             simultaneously challenging the creative mind. By offering a safe haven to interact with friends, tools for the imagination to
