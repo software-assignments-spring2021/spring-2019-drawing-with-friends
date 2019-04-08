@@ -1,0 +1,16 @@
+.homepageContainer {
+  font-family: 'Roboto', sans-serif;
+  color: white;
+  margin-top: -64px;
+}
+
+.homepageContainer h2 {
+  font-size: 3.5rem;
+  letter-spacing: 5px;
+  font-family: 'Montserrat', sans-serif;
+  color: #fff7f7;
+}
+
+.homepageContainer h3 {
+  font-size: 2rem;
+}

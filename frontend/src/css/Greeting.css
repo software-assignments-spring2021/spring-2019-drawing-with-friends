@@ -1,0 +1,13 @@
+.greetingContainer {
+  background-color: #a6e9d7;
+
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  justify-items: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.greetingContainer h1 {
+  grid-column: 2 / 10;
+}

@@ -1,0 +1,40 @@
+.instructionsContainer {
+  background-color: #bea698;
+
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  justify-items: center;
+  align-items: center;
+  height: 100vh;  
+}
+
+.instructionsTitle {
+  grid-column: 2 / 10;
+  grid-row: 2;
+}
+
+.instructionsDescription {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-column: 2 / 10;
+  grid-row: 3;
+  
+}
+
+.gettingStarted {
+  grid-column: 2 / 6;
+}
+
+.gettingStarted h3, .howToPlay h3 {
+  text-align: center;
+}
+
+.howToPlay {
+  grid-column: 8 / 12;
+}
+
+.howToPlay li {
+  list-style-type: disc;
+  padding: 0 0 3% 0;
+}
