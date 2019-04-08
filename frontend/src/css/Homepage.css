@@ -1,6 +1,7 @@
 .homepageContainer {
   font-family: 'Roboto', sans-serif;
   color: white;
+  margin-top: -64px;
 }
 
 .homepageContainer h2 {
