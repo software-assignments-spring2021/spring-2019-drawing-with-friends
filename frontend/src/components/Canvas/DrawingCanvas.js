@@ -31,12 +31,12 @@ export default function canvas (p) {
   let eraser = null
 
   p.preload = function () {
-    small = p.loadImage('https://raw.githubusercontent.com/nyu-software-engineering/drawing-with-friends/user-story/7/task/35/initialize-canvas/frontend/src/components/Canvas/Small.png')
-    medium = p.loadImage('https://raw.githubusercontent.com/nyu-software-engineering/drawing-with-friends/user-story/7/task/35/initialize-canvas/frontend/src/components/Canvas/Medium.png')
-    large = p.loadImage('https://raw.githubusercontent.com/nyu-software-engineering/drawing-with-friends/user-story/7/task/35/initialize-canvas/frontend/src/components/Canvas/Large.png')
-    circle = p.loadImage('https://raw.githubusercontent.com/nyu-software-engineering/drawing-with-friends/user-story/7/task/35/initialize-canvas/frontend/src/components/Canvas/Circle.png')
-    square = p.loadImage('https://raw.githubusercontent.com/nyu-software-engineering/drawing-with-friends/user-story/7/task/35/initialize-canvas/frontend/src/components/Canvas/Square.png')
-    eraser = p.loadImage('https://raw.githubusercontent.com/nyu-software-engineering/drawing-with-friends/user-story/7/task/35/initialize-canvas/frontend/src/components/Canvas/Eraser.png')
+    small = p.loadImage('src/images/Small.png')
+    medium = p.loadImage('src/images/Medium.png')
+    large = p.loadImage('src/images/Large.png')
+    circle = p.loadImage('src/images/Circle.png')
+    square = p.loadImage('src/images/Square.png')
+    eraser = p.loadImage('src/images/Eraser.png')
   }
 
   p.setup = function () {
