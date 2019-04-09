@@ -1,3 +1,10 @@
+import smallPng from '../../images/Small.png'
+import mediumPng from '../../images/Medium.png'
+import largePng from '../../images/Large.png'
+import circlePng from '../../images/Circle.png'
+import squarePng from '../../images/Square.png'
+import eraserPng from '../../images/Eraser.png'
+
 export default function canvas (p) {
   // Variables
   let tool = 'circle' // Currently selected tool "circle", "square", "eraser")
@@ -31,12 +38,12 @@ export default function canvas (p) {
   let eraser = null
 
   p.preload = function () {
-    small = p.loadImage('src/images/Small.png')
-    medium = p.loadImage('src/images/Medium.png')
-    large = p.loadImage('src/images/Large.png')
-    circle = p.loadImage('src/images/Circle.png')
-    square = p.loadImage('src/images/Square.png')
-    eraser = p.loadImage('src/images/Eraser.png')
+    small = p.loadImage(smallPng)
+    medium = p.loadImage(mediumPng)
+    large = p.loadImage(largePng)
+    circle = p.loadImage(circlePng)
+    square = p.loadImage(squarePng)
+    eraser = p.loadImage(eraserPng)
   }
 
   p.setup = function () {
