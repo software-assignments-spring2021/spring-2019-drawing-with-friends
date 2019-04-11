@@ -1,3 +1,6 @@
+import io from 'socket.io-client'
+let socket = io.connect('http://devserver.letsdraw.me:3000')
+
 import smallPng from '../../images/Small.png'
 import mediumPng from '../../images/Medium.png'
 import largePng from '../../images/Large.png'
@@ -49,19 +52,48 @@ export default function canvas (p) {
   p.setup = function () {
     // Set up the canvas
     p.createCanvas(600, 600)
+
+    socket.on('draw',
+      function (data) {
+        console.log("Received drawing data: " + data);
+        noStroke();
+        fill(data.color);
+        
+        if (data.tool === 'circle') {
+          p.ellipse(data.mouseX, data.mouseY, data.size, data.size)
+        } else if (data.tool === 'square') {
+          p.rect(data.mouseX - (data.size / 2), data.mouseY - (data.size / 2), data.size, data.size)
+        } else if (data.tool === 'eraser') {
+          p.ellipse(data.mouseX, data.mouseY, data.size, data.size)
+        }
+      }
+    );
   }
 
   p.draw = function () {
     p.noStroke() // Remove default stroke line
     p.fill(color) // Set color
 
-    if (p.mouseIsPressed && tool === 'circle') {
-      p.ellipse(p.mouseX, p.mouseY, size, size)
-    } else if (p.mouseIsPressed && tool === 'square') {
-      p.rect(p.mouseX - (size / 2), p.mouseY - (size / 2), size, size)
-    } else if (p.mouseIsPressed && tool === 'eraser') {
-      color = [...colors['white']]
-      p.ellipse(p.mouseX, p.mouseY, size, size)
+    // 
+    if(p.mouseIsPressed && p.mouseX > 38 && p.mouseY > 50){
+
+      let data = {
+        x: p.mouseX,
+        y: p.mouseY,
+        tool: tool,
+        color: color,
+        size: size
+      }
+
+      if (tool === 'circle') {
+        p.ellipse(p.mouseX, p.mouseY, size, size)
+      } else if (tool === 'square') {
+        p.rect(p.mouseX - (size / 2), p.mouseY - (size / 2), size, size)
+      } else if (tool === 'eraser') {
+        color = [...colors['white']]
+        p.ellipse(p.mouseX, p.mouseY, size, size)
+      }
+      
     }
 
     drawToolbar()
@@ -103,61 +135,89 @@ export default function canvas (p) {
 
   p.mousePressed = function () {
     // Color selection
-    if (p.mouseX > 60 && p.mouseX <= 90 && p.mouseY > 20 && p.mouseY <= 50) {
-      color = [...colors['white']]
-    } else if (p.mouseX > 90 && p.mouseX <= 120 && p.mouseY > 20 && p.mouseY <= 50) {
-      color = [...colors['yellow']]
-    } else if (p.mouseX > 120 && p.mouseX <= 150 && p.mouseY > 20 && p.mouseY <= 50) {
-      color = [...colors['orange']]
-    } else if (p.mouseX > 150 && p.mouseX <= 180 && p.mouseY > 20 && p.mouseY <= 50) {
-      color = [...colors['red']]
-    } else if (p.mouseX > 180 && p.mouseX <= 210 && p.mouseY > 20 && p.mouseY <= 50) {
-      color = [...colors['magenta']]
-    } else if (p.mouseX > 210 && p.mouseX <= 240 && p.mouseY > 20 && p.mouseY <= 50) {
-      color = [...colors['purple']]
-    } else if (p.mouseX > 240 && p.mouseX <= 270 && p.mouseY > 20 && p.mouseY <= 50) {
-      color = [...colors['blue']]
-    } else if (p.mouseX > 270 && p.mouseX <= 300 && p.mouseY > 20 && p.mouseY <= 50) {
-      color = [...colors['cyan']]
-    } else if (p.mouseX > 300 && p.mouseX <= 330 && p.mouseY > 20 && p.mouseY <= 50) {
-      color = [...colors['green']]
-    } else if (p.mouseX > 330 && p.mouseX <= 360 && p.mouseY > 20 && p.mouseY <= 50) {
-      color = [...colors['darkGreen']]
-    } else if (p.mouseX > 360 && p.mouseX <= 390 && p.mouseY > 20 && p.mouseY <= 50) {
-      color = [...colors['brown']]
-    } else if (p.mouseX > 390 && p.mouseX <= 420 && p.mouseY > 20 && p.mouseY <= 50) {
-      color = [...colors['tan']]
-    } else if (p.mouseX > 420 && p.mouseX <= 450 && p.mouseY > 20 && p.mouseY <= 50) {
-      color = [...colors['lightGray']]
-    } else if (p.mouseX > 450 && p.mouseX <= 480 && p.mouseY > 20 && p.mouseY <= 50) {
-      color = [...colors['mediumGray']]
-    } else if (p.mouseX > 480 && p.mouseX <= 510 && p.mouseY > 20 && p.mouseY <= 50) {
-      color = [...colors['darkGray']]
-    } else if (p.mouseX > 510 && p.mouseX <= 540 && p.mouseY > 20 && p.mouseY <= 50) {
-      color = [...colors['black']]
+    if (p.mouseY > 20 && p.mouseY <= 50) {
+      if (p.mouseX > 60 && p.mouseX <= 90) {
+        color = [...colors['white']]
+        return
+      } else if (p.mouseX > 90 && p.mouseX <= 120) {
+        color = [...colors['yellow']]
+        return
+      } else if (p.mouseX > 120 && p.mouseX <= 150) {
+        color = [...colors['orange']]
+        return
+      } else if (p.mouseX > 150 && p.mouseX <= 180) {
+        color = [...colors['red']]
+        return
+      } else if (p.mouseX > 180 && p.mouseX <= 210) {
+        color = [...colors['magenta']]
+        return
+      } else if (p.mouseX > 210 && p.mouseX <= 240) {
+        color = [...colors['purple']]
+        return
+      } else if (p.mouseX > 240 && p.mouseX <= 270) {
+        color = [...colors['blue']]
+        return
+      } else if (p.mouseX > 270 && p.mouseX <= 300) {
+        color = [...colors['cyan']]
+        return
+      } else if (p.mouseX > 300 && p.mouseX <= 330) {
+        color = [...colors['green']]
+        return
+      } else if (p.mouseX > 330 && p.mouseX <= 360) {
+        color = [...colors['darkGreen']]
+        return
+      } else if (p.mouseX > 360 && p.mouseX <= 390) {
+        color = [...colors['brown']]
+        return
+      } else if (p.mouseX > 390 && p.mouseX <= 420) {
+        color = [...colors['tan']]
+        return
+      } else if (p.mouseX > 420 && p.mouseX <= 450) {
+        color = [...colors['lightGray']]
+        return
+      } else if (p.mouseX > 450 && p.mouseX <= 480) {
+        color = [...colors['mediumGray']]
+        return
+      } else if (p.mouseX > 480 && p.mouseX <= 510) {
+        color = [...colors['darkGray']]
+        return
+      } else if (p.mouseX > 510 && p.mouseX <= 540) {
+        color = [...colors['black']]
+        return
+      }
     }
 
-    // Size selection
-    if (p.mouseX > 13 && p.mouseX < 38 && p.mouseY > 77 && p.mouseY < 98) {
-      size = 8 // Small
-    } else if (p.mouseX > 13 && p.mouseX < 38 && p.mouseY > 105 && p.mouseY < 128) {
-      size = 15 // Medium
-    } else if (p.mouseX > 13 && p.mouseX < 38 && p.mouseY > 137 && p.mouseY < 157) {
-      size = 25 // Large
-    }
+    
+    if (p.mouseX > 13 && p.mouseX < 38) {
+      // Size selection
+      if (p.mouseY > 77 && p.mouseY < 98) {
+        size = 8 // Small
+        return
+      } else if (p.mouseY > 105 && p.mouseY < 128) {
+        size = 15 // Medium
+        return
+      } else if (p.mouseY > 137 && p.mouseY < 157) {
+        size = 25 // Large
+        return
+      }
 
-    // Tool selection
-    if (p.mouseX > 13 && p.mouseX < 38 && p.mouseY > 199 && p.mouseY < 223) {
-      tool = 'circle'
-    } else if (p.mouseX > 13 && p.mouseX < 38 && p.mouseY > 232 && p.mouseY < 252) {
-      tool = 'square'
-    } else if (p.mouseX > 13 && p.mouseX < 38 && p.mouseY > 260 && p.mouseY < 282) {
-      tool = 'eraser'
+      // Tool selection
+      else if (p.mouseY > 199 && p.mouseY < 223) {
+        tool = 'circle'
+        return
+      } else if (p.mouseY > 232 && p.mouseY < 252) {
+        tool = 'square'
+        return
+      } else if (p.mouseY > 260 && p.mouseY < 282) {
+        tool = 'eraser'
+        return
+      }
     }
 
     // Erase all
     if (p.mouseX > 250 && p.mouseX < 350 && p.mouseY > 65 && p.mouseY < 90) {
       p.background(255)
+      return
     }
   }
 }
