@@ -1,5 +1,6 @@
 import io from 'socket.io'
-const server = io.listen(3000)
+let port = process.env.PORT || 3000;
+const server = io.listen(port)
 
 server.on('connection', (socket) => {
   console.log('user connected')

@@ -1,5 +1,5 @@
 import io from 'socket.io-client'
-let socket = io.connect('http://devserver.letsdraw.me:3000')
+let socket = io.connect('http://devserver.letsdraw.me')
 
 import smallPng from '../../images/Small.png'
 import mediumPng from '../../images/Medium.png'
@@ -67,7 +67,11 @@ export default function canvas (p) {
           p.ellipse(data.mouseX, data.mouseY, data.size, data.size)
         }
       }
-    );
+    )
+
+    socket.on('welcome', (message) => {
+      console.log(message)
+    })
   }
 
   p.draw = function () {
