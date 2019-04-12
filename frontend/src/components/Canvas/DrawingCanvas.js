@@ -60,11 +60,11 @@ export default function canvas (p) {
         p.fill(data.color);
         
         if (data.tool === 'circle') {
-          p.ellipse(data.mouseX, data.mouseY, data.size, data.size)
+          p.ellipse(data.x, data.y, data.size, data.size)
         } else if (data.tool === 'square') {
-          p.rect(data.mouseX - (data.size / 2), data.mouseY - (data.size / 2), data.size, data.size)
+          p.rect(data.x - (data.size / 2), data.y - (data.size / 2), data.size, data.size)
         } else if (data.tool === 'eraser') {
-          p.ellipse(data.mouseX, data.mouseY, data.size, data.size)
+          p.ellipse(data.x, data.y, data.size, data.size)
         }
       }
     )
