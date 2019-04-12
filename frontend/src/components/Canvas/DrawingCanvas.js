@@ -56,8 +56,8 @@ export default function canvas (p) {
     socket.on('draw',
       function (data) {
         console.log("Received drawing data: " + data);
-        noStroke();
-        fill(data.color);
+        p.noStroke();
+        p.fill(data.color);
         
         if (data.tool === 'circle') {
           p.ellipse(data.mouseX, data.mouseY, data.size, data.size)
