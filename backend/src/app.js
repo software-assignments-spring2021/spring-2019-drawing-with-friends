@@ -7,7 +7,7 @@ server.on('connection', (socket) => {
   socket.emit('welcome', 'welcome man')
 
   socket.on('draw', (data) => {
-    console.log("Received 'draw' event at (" + data.x + ", " + data.y + ")")
+    console.log("Received 'draw' event at (" + data.x + ", " + data.y + ") from client IP " + socket.handshake.address)
     socket.broadcast.emit('draw', data);
   })
 })

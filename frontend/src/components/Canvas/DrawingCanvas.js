@@ -1,12 +1,21 @@
 import io from 'socket.io-client'
-let socket = io.connect('https://devserver.letsdraw.me')
-
 import smallPng from '../../images/Small.png'
 import mediumPng from '../../images/Medium.png'
 import largePng from '../../images/Large.png'
 import circlePng from '../../images/Circle.png'
 import squarePng from '../../images/Square.png'
 import eraserPng from '../../images/Eraser.png'
+
+let socket
+
+if (window.location.href.includes('localhost') || window.location.href.includes('127.0.0.1')){
+  socket = io.connect('127.0.0.1:3000')
+} else if (window.location.href.includes('https://letsdraw.me')){
+  socket = io.connect('https://server.letsdraw.me')
+} else {
+  socket = io.connect('https://devserver.letsdraw.me')
+}
+
 
 export default function canvas (p) {
   // Variables
@@ -55,7 +64,6 @@ export default function canvas (p) {
 
     socket.on('draw',
       function (data) {
-        console.log("Received drawing data: " + data);
         p.noStroke();
         p.fill(data.color);
         
@@ -68,10 +76,6 @@ export default function canvas (p) {
         }
       }
     )
-
-    socket.on('welcome', (message) => {
-      console.log(message)
-    })
   }
 
   p.draw = function () {
@@ -99,7 +103,6 @@ export default function canvas (p) {
       }
       
       socket.emit("draw", data)
-      console.log("Sending draw data: " + data)
     }
 
     drawToolbar()
