@@ -94,6 +94,8 @@ export default function canvas (p) {
         p.ellipse(p.mouseX, p.mouseY, size, size)
       }
       
+      socket.emit("draw", data)
+      console.log("Sending draw data: " + data)
     }
 
     drawToolbar()
