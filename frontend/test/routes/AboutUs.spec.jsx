@@ -3,18 +3,18 @@ import { describe } from 'mocha'
 import { expect } from 'chai'
 import { configure, shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-import AboutUs from '../../src/components/AboutUs'
+import AboutUs from '../../src/components/Homepage/AboutUs'
 
 configure({ adapter: new Adapter() })
 
-describe('About Us page', function () {
-  it('renders title in h1 tags', function () {
+describe('About Us section', function () {
+  it('renders title in h2 tags', function () {
     const wrapper = shallow(<AboutUs/>)
-    const aboutUs = <h1>About Us!</h1>
+    const aboutUs = <h2>ABOUT US</h2>
     expect(wrapper.contains(aboutUs)).to.equal(true)
   })
 
-  it('includes a link to the game', function () {
+  it('drawing with friends description exists', function () {
     const wrapper = shallow(<AboutUs/>)
     const drawingWithFriendsParagraph = <p>Drawing With Friends, headquartered in New York, New York, focuses on
             providing
@@ -30,7 +30,7 @@ describe('About Us page', function () {
     expect(wrapper.contains(drawingWithFriendsParagraph)).to.equal(true)
   })
 
-  it('includes a link to the game', function () {
+  it('game founding description exists', function () {
     const wrapper = shallow(<AboutUs/>)
     const drawingWithFriendsParagraph = <p>Drawing With Friends was founded in the February of 2019 by a professor
             of Computer

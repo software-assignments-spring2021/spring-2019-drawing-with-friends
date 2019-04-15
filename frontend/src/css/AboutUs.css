@@ -12,9 +12,15 @@
 .aboutTitle {
   grid-column: 2 / 10;
   grid-row: 2;
+  text-align: center;
 }
 
 .aboutDescription {
   grid-column: 2 / 10;
   grid-row: 3;
+}
+
+.formatImages {
+  width: 100px;
+  height: 100px;
 }

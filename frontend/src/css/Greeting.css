@@ -9,5 +9,10 @@
 }
 
 .greetingContainer h1 {
-  grid-column: 2 / 10;
+  grid-column: 2/7;
+}
+
+.pencilImage {
+  grid-column: 8;
+  transform: rotate(45deg);
 }

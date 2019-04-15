@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Footer from './components/Footer.jsx'
 import NavigationBar from './components/NavigationBar.jsx'
-import Canvas from './components/Canvas/CanvasWrapper.jsx'
+import GamePage from './components/GamePage.jsx'
 import Homepage from './components/Homepage/Homepage.jsx'
 
 class App extends React.Component {
@@ -13,7 +13,7 @@ class App extends React.Component {
         <NavigationBar/>
 
         <Switch>
-          <Route path="/game" component={Canvas}/>
+          <Route path="/game" component={GamePage}/>
           <Route path="/" component={Homepage}/>
         </Switch>
 
