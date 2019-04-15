@@ -24,17 +24,24 @@
 
 .gettingStarted {
   grid-column: 2 / 6;
-}
-
-.gettingStarted h3, .howToPlay h3 {
   text-align: center;
 }
 
 .howToPlay {
   grid-column: 8 / 12;
+  text-align: center;
 }
 
 .howToPlay li {
   list-style-type: disc;
   padding: 0 0 3% 0;
+}
+
+.gettingStarted p, .howToPlay li {
+  text-align: left;
+}
+
+.formatImages {
+  width: 100px;
+  height: 100px;
 }

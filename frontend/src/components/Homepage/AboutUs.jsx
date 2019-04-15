@@ -1,5 +1,6 @@
 import * as React from 'react'
 import '../../css/AboutUs.css'
+import rocket from '../../images/Rocket.svg'
 
 export default class AboutUs extends React.Component {
   render () {
@@ -7,6 +8,7 @@ export default class AboutUs extends React.Component {
       <div className='aboutContainer'>
         <div className='aboutTitle'>
           <h2>ABOUT US</h2>
+          <img src={rocket} alt='Rocket icon' className='formatImages'/>
         </div>
         <div className='aboutDescription'>
           <p>Drawing With Friends, headquartered in New York, New York, focuses on providing entertaining while

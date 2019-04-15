@@ -6,8 +6,8 @@ export default class Greeting extends React.Component {
   render () {
     return (
       <div className='greetingContainer'>
-        <img src={pencilSvg} alt="Pencil image"/>
         <h1>Drawing With Friends</h1>
+        <img src={pencilSvg} alt="Pencil image" className='pencilImage'/>
       </div>
     )
   }
