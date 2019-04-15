@@ -60,7 +60,7 @@ export default function canvas (p) {
 
   p.setup = function () {
     // Set up the canvas
-    p.createCanvas(600, 600)
+    p.createCanvas(600, 400)
 
     socket.on('draw',
       function (data) {
