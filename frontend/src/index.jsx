@@ -3,9 +3,8 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Footer from './components/Footer.jsx'
 import NavigationBar from './components/NavigationBar.jsx'
-import GamePage from './components/GamePage.jsx'
+import JoinPage from './components/JoinGamePage.jsx'
 import Homepage from './components/Homepage/Homepage.jsx'
-
 class App extends React.Component {
   render () {
     return (
@@ -13,7 +12,7 @@ class App extends React.Component {
         <NavigationBar/>
 
         <Switch>
-          <Route path="/game" component={GamePage}/>
+          <Route path="/join" component={JoinPage}/>
           <Route path="/" component={Homepage}/>
         </Switch>
 
