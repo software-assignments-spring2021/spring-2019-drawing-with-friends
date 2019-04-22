@@ -8,14 +8,13 @@ import eraserPng from '../../images/Eraser.png'
 
 let socket
 
-if (window.location.href.includes('localhost') || window.location.href.includes('127.0.0.1')){
+if (window.location.href.includes('localhost') || window.location.href.includes('127.0.0.1')) {
   socket = io.connect('127.0.0.1:3000')
-} else if (window.location.href.includes('https://letsdraw.me')){
+} else if (window.location.href.includes('https://letsdraw.me')) {
   socket = io.connect('https://server.letsdraw.me')
 } else {
   socket = io.connect('https://devserver.letsdraw.me')
 }
-
 
 export default function canvas (p) {
   // Variables
@@ -64,9 +63,9 @@ export default function canvas (p) {
 
     socket.on('draw',
       function (data) {
-        p.noStroke();
-        p.fill(data.color);
-        
+        p.noStroke()
+        p.fill(data.color)
+
         if (data.tool === 'circle') {
           p.ellipse(data.x, data.y, data.size, data.size)
         } else if (data.tool === 'square') {
@@ -76,15 +75,18 @@ export default function canvas (p) {
         }
       }
     )
+
+    socket.on('erase-all', () => {
+      p.background(255)
+    })
   }
 
   p.draw = function () {
     p.noStroke() // Remove default stroke line
     p.fill(color) // Set color
 
-    // 
-    if(p.mouseIsPressed && p.mouseX > 38 && p.mouseY > 50){
-
+    //
+    if (p.mouseIsPressed && p.mouseX > 38 && p.mouseY > 50) {
       let data = {
         x: p.mouseX,
         y: p.mouseY,
@@ -101,8 +103,8 @@ export default function canvas (p) {
         color = [...colors['white']]
         p.ellipse(p.mouseX, p.mouseY, size, size)
       }
-      
-      socket.emit("draw", data)
+
+      socket.emit('draw', data)
     }
 
     drawToolbar()
@@ -196,7 +198,6 @@ export default function canvas (p) {
       }
     }
 
-    
     if (p.mouseX > 13 && p.mouseX < 38) {
       // Size selection
       if (p.mouseY > 77 && p.mouseY < 98) {
@@ -226,7 +227,7 @@ export default function canvas (p) {
     // Erase all
     if (p.mouseX > 250 && p.mouseX < 350 && p.mouseY > 65 && p.mouseY < 90) {
       p.background(255)
-      return
+      socket.emit('erase-all')
     }
   }
 }
