@@ -12,7 +12,7 @@ export default class NavigationBar extends React.Component {
               <li><Link to="/" className="waves-effect waves-light btn">Create Room <i
                 className="material-icons right">color_lens</i></Link></li>
               <li><Link to="/join" className="waves-effect waves-light btn">Join Room <i
-                className="material-icons right">color_lens</i></Link></li>
+                className="material-icons right">colorize</i></Link></li>
             </ul>
           </div>
         </nav>

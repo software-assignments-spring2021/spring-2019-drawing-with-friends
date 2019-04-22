@@ -11,15 +11,15 @@ configure({ adapter: new Adapter() })
 describe('NavigationBar', function () {
   it('renders "create room" button', function () {
     const wrapper = shallow(<NavigationBar/>)
-    const createRoomButton = <Link to="/game" className="waves-effect waves-light btn">Create Room <i
+    const createRoomButton = <Link to="/" className="waves-effect waves-light btn">Create Room <i
       className="material-icons right">color_lens</i></Link>
     expect(wrapper.contains(createRoomButton)).to.equal(true)
   })
 
   it('renders "join random room" button', function () {
     const wrapper = shallow(<NavigationBar/>)
-    const joinRandomRoomButton = <a className="waves-effect waves-light btn">Join Random <i
-      className="material-icons right">colorize</i></a>
+    const joinRandomRoomButton = <Link to="/join" className="waves-effect waves-light btn">Join Room <i
+      className="material-icons right">colorize</i></Link>
     expect(wrapper.contains(joinRandomRoomButton)).to.equal(true)
   })
 })
