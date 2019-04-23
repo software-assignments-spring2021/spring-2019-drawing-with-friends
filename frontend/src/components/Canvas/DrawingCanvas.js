@@ -122,6 +122,7 @@ export default function canvas (p) {
 
     socket.on('erase-all', () => {
       p.background(255)
+      history = []
     })
   }
 
