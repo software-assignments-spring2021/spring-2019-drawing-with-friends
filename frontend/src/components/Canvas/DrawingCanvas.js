@@ -7,6 +7,7 @@ import squarePng from '../../images/Square.png'
 import eraserPng from '../../images/Eraser.png'
 
 let socket
+let history = []
 
 if (window.location.href.includes('localhost') || window.location.href.includes('127.0.0.1')) {
   socket = io.connect('127.0.0.1:3000')
@@ -73,11 +74,55 @@ export default function canvas (p) {
         } else if (data.tool === 'eraser') {
           p.ellipse(data.x, data.y, data.size, data.size)
         }
+
+        history.push(draw)
+      }
+    )
+
+    socket.on('history', 
+      function (data) {
+        for(let i = 0; i < data.length; i++){
+          p.noStroke()
+          p.fill(data[i].color)
+
+          if (data[i].tool === 'circle') {
+            p.ellipse(data[i].x, data[i].y, data[i].size, data[i].size)
+          } else if (data[i].tool === 'square') {
+            p.rect(data[i].x - (data[i].size / 2), data[i].y - (data[i].size / 2), data[i].size, data[i].size)
+          } else if (data[i].tool === 'eraser') {
+            p.ellipse(data[i].x, data[i].y, data[i].size, data[i].size)
+          }
+        }
+        history = draw
+      }
+    )
+
+    socket.on('undo', 
+      function (data) {
+        let last = history.pop()
+        if(last.x == data.x && last.y == data.y){
+          p.background(255)
+          for (let i = 0; i < history.length; i++) {
+            p.noStroke()
+            p.fill(data.color)
+
+            if (data[i].tool === 'circle') {
+              p.ellipse(data[i].x, data[i].y, data[i].size, data[i].size)
+            } else if (data[i].tool === 'square') {
+              p.rect(data[i].x - (data[i].size / 2), data[i].y - (data[i].size / 2), data[i].size, data[i].size)
+            } else if (data[i].tool === 'eraser') {
+              p.ellipse(data[i].x, data[i].y, data[i].size, data[i].size)
+            }
+          }
+        }else{
+          socket.emit('recalibrate')
+        }
       }
     )
 
     socket.on('erase-all', () => {
       p.background(255)
+      history = []
     })
   }
 
