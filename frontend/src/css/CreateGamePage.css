@@ -1,8 +1,18 @@
 .createGameContainer {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(5, 1fr);
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(12, 1fr);
     justify-items: center;
     align-content: center;
     text-align: center;
+}
+
+.createGameContainer h2 {
+    grid-row: 3;
+    font-size: 3em;
+}
+
+.createGameContainer p {
+    grid-row: 4;
+    font-size: 2em;
 }
