@@ -50,4 +50,14 @@ server.on('connection', (socket) => {
   socket.on('recalibrate', () => {
     socket.broadcast('history', history)
   })
+
+  socket.on('disconnect', () => {
+    if (playersRooms[socket.id]) {
+      playersRooms[socket.id].removePlayer(socket.id)
+      if (playersRooms[socket.id].roomMembers.length === 0) {
+        delete rooms[playersRooms[socket.id].roomId]
+      }
+      delete playersRooms[socket.id]
+    }
+  })
 })

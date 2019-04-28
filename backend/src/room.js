@@ -16,4 +16,8 @@ export default class Room {
     this.chatMessages.push(chatMessage)
     this.server.in(this.roomId).emit('chat-update', this.chatMessages)
   }
+
+  removePlayer (player) {
+    this.roomMembers = this.roomMembers.filter(playerId => player !== playerId)
+  }
 }
