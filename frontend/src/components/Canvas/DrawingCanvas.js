@@ -75,13 +75,13 @@ export default function canvas (p) {
           p.ellipse(data.x, data.y, data.size, data.size)
         }
 
-        history.push(draw)
+        history.push(data)
       }
     )
 
-    socket.on('history', 
+    socket.on('history',
       function (data) {
-        for(let i = 0; i < data.length; i++){
+        for (let i = 0; i < data.length; i++) {
           p.noStroke()
           p.fill(data[i].color)
 
@@ -93,14 +93,14 @@ export default function canvas (p) {
             p.ellipse(data[i].x, data[i].y, data[i].size, data[i].size)
           }
         }
-        history = draw
+        history = data
       }
     )
 
-    socket.on('undo', 
+    socket.on('undo',
       function (data) {
         let last = history.pop()
-        if(last.x == data.x && last.y == data.y){
+        if (last.x === data.x && last.y === data.y) {
           p.background(255)
           for (let i = 0; i < history.length; i++) {
             p.noStroke()
@@ -114,7 +114,7 @@ export default function canvas (p) {
               p.ellipse(data[i].x, data[i].y, data[i].size, data[i].size)
             }
           }
-        }else{
+        } else {
           socket.emit('recalibrate')
         }
       }
@@ -254,10 +254,7 @@ export default function canvas (p) {
       } else if (p.mouseY > 137 && p.mouseY < 157) {
         size = 25 // Large
         return
-      }
-
-      // Tool selection
-      else if (p.mouseY > 199 && p.mouseY < 223) {
+      } else if (p.mouseY > 199 && p.mouseY < 223) {
         tool = 'circle'
         return
       } else if (p.mouseY > 232 && p.mouseY < 252) {

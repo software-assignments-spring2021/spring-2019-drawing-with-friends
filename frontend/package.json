@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.jsx",
   "scripts": {
-    "start": "webpack-dev-server --open --mode development",
+    "start": "webpack-dev-server --open --mode development --history-api-fallback",
     "build": "webpack --mode production",
     "test": "nyc --extension .jsx mocha --require ignore-styles,@babel/register 'test/**/*.{js,jsx}'",
     "lint": "eslint --ext .jsx,.js src --fix"

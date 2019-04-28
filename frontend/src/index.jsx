@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { HashRouter, Switch, Route } from 'react-router-dom'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Footer from './components/Footer.jsx'
 import NavigationBar from './components/NavigationBar.jsx'
 import JoinPage from './components/JoinGamePage.jsx'
@@ -26,8 +26,8 @@ class App extends React.Component {
 }
 
 ReactDOM.render(
-  <HashRouter>
+  <BrowserRouter>
     <App/>
-  </HashRouter>,
+  </BrowserRouter>,
   document.getElementById('root')
 )
