@@ -1,47 +1,31 @@
 import * as React from 'react'
 import Canvas from './Canvas/CanvasWrapper.jsx'
 import '../css/GamePage.css'
+import Chat from './Chat.jsx'
+import io from 'socket.io-client'
 
 class GamePage extends React.Component {
   constructor (props) {
     super(props)
-    this.state = {
-      chatMessages: [
-        {
-          id: 1,
-          author: 'Jeph',
-          message: 'Test message :)'
-        }
-      ]
+    const { roomId } = this.props
+    if (window.location.href.includes('localhost') || window.location.href.includes('127.0.0.1')) {
+      this.socket = io.connect('127.0.0.1:3000')
+    } else if (window.location.href.includes('https://letsdraw.me')) {
+      this.socket = io.connect('https://server.letsdraw.me')
+    } else {
+      this.socket = io.connect('https://devserver.letsdraw.me')
     }
-  }
-
-  renderChatMessages () {
-    return this.state.chatMessages.map((message) => {
-      return (
-        <p key={message.id}>
-          {message.author}: {message.message}
-        </p>
-      )
-    })
+    this.socket.emit('join-room', { roomId: roomId })
   }
 
   render () {
     return (
       <div className='gamePageContainer'>
         <div className='canvasContainer'>
-          <Canvas/>
+          <Canvas socket={this.socket} />
         </div>
 
-        <div className='chatContainer'>
-          <div className='chatInfo'>
-            Put text from the chat here!
-          </div>
-          <form>
-            <textarea placeholder='Enter your answer!'/>
-          </form>
-          {this.renderChatMessages()}
-        </div>
+        <Chat socket={this.socket} />
       </div>
     )
   }

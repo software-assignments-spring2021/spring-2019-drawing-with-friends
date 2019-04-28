@@ -1,37 +1,53 @@
 import io from 'socket.io'
+import Room from './room'
 let port = process.env.PORT || 3000
 const server = io.listen(port)
 
-let history = [];
+let history = []
+
+// provides quick access to rooms by their IDs
+const rooms = {}
+
+// provides quick access to the room a player is a part of
+const playersRooms = {}
 
 server.on('connection', (socket) => {
-  console.log('user connected')
-  socket.emit('welcome', 'welcome man')
+  socket.on('join-room', (roomData) => {
+    const { roomId } = roomData
+    socket.join(roomData.roomId)
+    if (rooms[roomId]) {
+      rooms[roomId].addPlayer(socket.id)
+      playersRooms[socket.id] = rooms[roomId]
+    } else {
+      rooms[roomId] = new Room(roomId, socket.id, server)
+      playersRooms[socket.id] = rooms[roomId]
+    }
+  })
 
-  if(history.length != 0){
+  socket.on('chat', (chatMessage) => {
+    if (playersRooms[socket.id]) { playersRooms[socket.id].chat(chatMessage) }
+  })
+
+  if (history.length !== 0) {
     socket.emit('history', history)
   }
 
   socket.on('draw', (data) => {
-    console.log("Received 'draw' event at (" + data.x + ', ' + data.y + ') from client IP ' + socket.handshake.address)
     history.push(data)
     socket.broadcast.emit('draw', data)
   })
 
   socket.on('erase-all', () => {
-    console.log('erase all')
-    history = [];
+    history = []
     socket.broadcast.emit('erase-all')
   })
 
   socket.on('undo', () => {
-    console.log('undo event')
     let draw = history.pop()
     socket.broadcast('undo', draw)
   })
 
   socket.on('recalibrate', () => {
-    console.log('recalibrate from client IP ' + socket.handshake.address)
     socket.broadcast('history', history)
   })
 })
