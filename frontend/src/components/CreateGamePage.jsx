@@ -1,7 +1,7 @@
 import * as React from 'react'
 import '../css/CreateGamePage.css'
-import io from 'socket.io-client'
 import GamePage from './GamePage.jsx'
+import socketConnect from '../utils/SocketConnect'
 
 class CreateGamePage extends React.Component {
   constructor (props) {
@@ -11,13 +11,7 @@ class CreateGamePage extends React.Component {
       validRoomCode: false
     }
 
-    if (window.location.href.includes('localhost') || window.location.href.includes('127.0.0.1')) {
-      this.socket = io.connect('127.0.0.1:3000')
-    } else if (window.location.href.includes('https://letsdraw.me')) {
-      this.socket = io.connect('https://server.letsdraw.me')
-    } else {
-      this.socket = io.connect('https://devserver.letsdraw.me')
-    }
+    this.socket = socketConnect()
     this.socket.emit('create-room', { roomId: this.state.roomCode })
 
     this.socket.on('room-already-exists', () => {
