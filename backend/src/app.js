@@ -12,15 +12,27 @@ const rooms = {}
 const playersRooms = {}
 
 server.on('connection', (socket) => {
-  socket.on('join-room', (roomData) => {
+  socket.on('create-room', (roomData) => {
     const { roomId } = roomData
-    socket.join(roomData.roomId)
-    if (rooms[roomId]) {
-      rooms[roomId].addPlayer(socket.id)
-      playersRooms[socket.id] = rooms[roomId]
-    } else {
+    if (!rooms[roomId]) {
+      socket.join(roomData.roomId)
       rooms[roomId] = new Room(roomId, socket.id, server)
       playersRooms[socket.id] = rooms[roomId]
+      socket.emit('confirm-valid-room-code')
+    } else {
+      socket.emit('room-already-exists')
+    }
+  })
+
+  socket.on('join-room', (roomData) => {
+    const { roomId } = roomData
+    if (rooms[roomId]) {
+      socket.join(roomData.roomId)
+      rooms[roomId].addPlayer(socket.id)
+      playersRooms[socket.id] = rooms[roomId]
+      socket.emit('confirm-valid-room-code')
+    } else {
+      socket.emit('room-does-not-exist')
     }
   })
 
