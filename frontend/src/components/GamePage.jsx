@@ -13,7 +13,7 @@ class GamePage extends React.Component {
             <Canvas socket={this.props.socket} />
           </div>
 
-          <Chat socket={this.props.socket} />
+          <Chat socket={this.props.socket} playerName={this.props.playerName}/>
         </div>
       </div>
     )

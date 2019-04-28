@@ -13,10 +13,10 @@ const playersRooms = {}
 
 server.on('connection', (socket) => {
   socket.on('create-room', (roomData) => {
-    const { roomId } = roomData
+    const { roomId, name } = roomData
     if (!rooms[roomId]) {
       socket.join(roomData.roomId)
-      rooms[roomId] = new Room(roomId, socket.id, server)
+      rooms[roomId] = new Room(roomId, socket.id, server, name)
       playersRooms[socket.id] = rooms[roomId]
       socket.emit('confirm-valid-room-code')
     } else {
@@ -25,10 +25,10 @@ server.on('connection', (socket) => {
   })
 
   socket.on('join-room', (roomData) => {
-    const { roomId } = roomData
+    const { roomId, name } = roomData
     if (rooms[roomId]) {
       socket.join(roomData.roomId)
-      rooms[roomId].addPlayer(socket.id)
+      rooms[roomId].addPlayer(socket.id, name)
       playersRooms[socket.id] = rooms[roomId]
       socket.emit('confirm-valid-room-code')
     } else {

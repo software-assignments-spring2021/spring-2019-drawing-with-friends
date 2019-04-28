@@ -8,15 +8,14 @@ class CreateGamePage extends React.Component {
     super(props)
     this.state = {
       roomCode: this.generateCode(),
-      validRoomCode: false
+      validRoomCode: false,
+      name: ''
     }
 
     this.socket = socketConnect()
-    this.socket.emit('create-room', { roomId: this.state.roomCode })
-
     this.socket.on('room-already-exists', () => {
       this.setState({ roomCode: this.generateCode() })
-      this.socket.emit('create-room', { roomId: this.state.roomCode })
+      this.socket.emit('create-room', { roomId: this.state.roomCode, name: this.state.name })
     })
 
     this.socket.on('confirm-valid-room-code', () => {
@@ -26,6 +25,15 @@ class CreateGamePage extends React.Component {
 
   componentWillUnmount () {
     this.socket.disconnect()
+  }
+
+  handleChange (e) {
+    this.setState({ name: e.target.value })
+  }
+
+  handleSubmit (e) {
+    e.preventDefault()
+    this.socket.emit('create-room', { roomId: this.state.roomCode, name: this.state.name })
   }
 
   generateCode () {
@@ -45,8 +53,11 @@ class CreateGamePage extends React.Component {
   render () {
     return (
       this.state.validRoomCode
-        ? <GamePage roomId={this.state.roomCode} socket={this.socket}/>
-        : <div>Connecting... Please wait</div>
+        ? <GamePage roomId={this.state.roomCode} socket={this.socket} playerName={this.state.name}/>
+        : <form onSubmit={this.handleSubmit.bind(this)}>
+          <input type='text' placeholder='Enter your name' onChange={this.handleChange.bind(this)}/>
+          <input type="submit" value="Join" disabled={!this.state.name}/>
+        </form>
     )
   }
 }

@@ -22,7 +22,7 @@ class Chat extends React.Component {
     return this.state.chatMessages.map((message, index) => {
       return (
         <p key={index}>
-          {message.message}
+          {message.name}: {message.message}
         </p>
       )
     })
@@ -31,6 +31,7 @@ class Chat extends React.Component {
   sendMessage (e) {
     e.preventDefault()
     this.props.socket.emit('chat', {
+      name: this.props.playerName,
       message: this.state.chatInputValue
     })
     this.setState({ chatInputValue: '' })

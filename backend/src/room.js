@@ -1,15 +1,15 @@
 export default class Room {
-  constructor (roomId, roomCreator, server) {
+  constructor (roomId, roomCreator, server, roomCreatorName) {
     this.server = server
     this.roomId = roomId
     this.roomMembers = []
-    this.roomMembers.push(roomCreator)
+    this.roomMembers.push({ playerId: roomCreator, name: roomCreatorName })
     this.roomAdmin = roomCreator
     this.chatMessages = []
   }
 
-  addPlayer (player) {
-    this.roomMembers.push(player)
+  addPlayer (id, name) {
+    this.roomMembers.push({ playerId: id, name: name })
   }
 
   chat (chatMessage) {
@@ -18,6 +18,6 @@ export default class Room {
   }
 
   removePlayer (player) {
-    this.roomMembers = this.roomMembers.filter(playerId => player !== playerId)
+    this.roomMembers = this.roomMembers.filter(playerObj => player !== playerObj.playerId)
   }
 }
