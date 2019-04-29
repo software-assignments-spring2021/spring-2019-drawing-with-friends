@@ -11,6 +11,8 @@ class Chat extends React.Component {
 
     this.props.socket.on('chat-update', (chatMessages) => {
       this.setState({ chatMessages: chatMessages })
+      const chatDiv = document.getElementsByClassName('messages')[0]
+      chatDiv.scrollTop = chatDiv.scrollHeight
     })
   }
 
@@ -34,11 +36,13 @@ class Chat extends React.Component {
 
   sendMessage (e) {
     e.preventDefault()
-    this.props.socket.emit('chat', {
-      name: this.props.playerName,
-      message: this.state.chatInputValue
-    })
-    this.setState({ chatInputValue: '' })
+    if (this.state.chatInputValue) {
+      this.props.socket.emit('chat', {
+        name: this.props.playerName,
+        message: this.state.chatInputValue
+      })
+      this.setState({ chatInputValue: '' })
+    }
   }
 
   render () {
