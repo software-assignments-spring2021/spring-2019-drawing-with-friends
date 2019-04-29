@@ -46,12 +46,16 @@ server.on('connection', (socket) => {
 
   socket.on('draw', (data) => {
     history.push(data)
-    socket.broadcast.emit('draw', data)
+    if (playersRooms[socket.id]) {
+      socket.to(playersRooms[socket.id].roomId).emit('draw', data)
+    }
   })
 
   socket.on('erase-all', () => {
     history = []
-    socket.broadcast.emit('erase-all')
+    if (playersRooms[socket.id]) {
+      socket.to(playersRooms[socket.id].roomId).emit('erase-all')
+    }
   })
 
   socket.on('undo', () => {

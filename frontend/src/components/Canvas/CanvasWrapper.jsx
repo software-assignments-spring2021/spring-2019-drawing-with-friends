@@ -4,7 +4,7 @@ import canvas from './DrawingCanvas.js'
 
 class CanvasWrapper extends React.Component {
   componentDidMount () {
-    this.canvas = new P5(canvas, 'canvas')
+    this.canvas = new P5(canvas(this.props.socket), 'canvas')
   }
 
   shouldComponentUpdate () { // just in case
