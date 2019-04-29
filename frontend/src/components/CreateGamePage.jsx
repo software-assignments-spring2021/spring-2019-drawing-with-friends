@@ -54,10 +54,12 @@ class CreateGamePage extends React.Component {
     return (
       this.state.validRoomCode
         ? <GamePage roomId={this.state.roomCode} socket={this.socket} playerName={this.state.name}/>
-        : <form onSubmit={this.handleSubmit.bind(this)}>
-          <input type='text' placeholder='Enter your name' onChange={this.handleChange.bind(this)}/>
-          <input type="submit" value="Join" disabled={!this.state.name}/>
-        </form>
+        : <div className='createGameContainer'>
+          <form onSubmit={this.handleSubmit.bind(this)} className='createGameForm'>
+            <input type='text' placeholder='Enter your name' onChange={this.handleChange.bind(this)}/>
+            <input type="submit" value="Join" disabled={!this.state.name} />
+          </form>
+        </div>
     )
   }
 }
