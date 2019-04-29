@@ -14,8 +14,7 @@ body {
 .createGameForm input[type=text] {
     text-align: center;
     border-bottom: 1px solid #adadad;
-    color: #727272;
-    
+    color: #2d2d2d;
 }
 
 .createGameForm ::placeholder {
