@@ -43,6 +43,26 @@ class GamePage extends React.Component {
             <Canvas socket={this.props.socket} />
           </div>
           <Chat socket={this.props.socket} playerName={this.props.playerName}/>
+          <div className='playerList'>
+            <div className='playerNames'>
+              <p>Insert</p>
+              <p>Player</p>
+              <p>Names</p>
+              <p>Here</p>
+              <p>Later</p>
+              <p>Lorem</p>
+              <p>Ipsum</p>
+              <p>Dolor</p>
+              <p>Sit</p>
+              <p>Amet</p>
+              <p>Consectetur</p>
+              <p>Adipiscing</p>
+              <p>Elit</p>
+              <p>Sed</p>
+              <p>Do</p>
+            </div>
+            <button>Start Game</button>
+          </div>
         </div>
       </React.Fragment>
     )
