@@ -6,15 +6,12 @@ import Chat from './Chat.jsx'
 class GamePage extends React.Component {
   render () {
     return (
-      <div>
+      <div className='gamePageContainer'>
         <h4>Share this code with your friends: {this.props.roomId}</h4>
-        <div className='gamePageContainer'>
-          <div className='canvasContainer'>
-            <Canvas socket={this.props.socket} />
-          </div>
-
-          <Chat socket={this.props.socket} playerName={this.props.playerName}/>
+        <div className='canvasContainer'>
+          <Canvas socket={this.props.socket} />
         </div>
+        <Chat socket={this.props.socket} playerName={this.props.playerName}/>
       </div>
     )
   }

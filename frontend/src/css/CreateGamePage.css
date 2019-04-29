@@ -1,6 +1,5 @@
 body {
-    background: rgb(65,144,209);
-    background: linear-gradient(0deg, rgba(65,144,209,1) 0%, rgba(80,209,200,1) 100%);
+    background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);
 }
 
 .createGameContainer {
@@ -14,13 +13,13 @@ body {
 
 .createGameForm input[type=text] {
     text-align: center;
-    border-bottom: 1px solid #ffffff;
-    color: #efefef;
+    border-bottom: 1px solid #adadad;
+    color: #727272;
     
 }
 
 .createGameForm ::placeholder {
-    color: #ffffff;
+    color: #727272;
 }
 
 .createGameForm input[type=submit] {

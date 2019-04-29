@@ -2,7 +2,13 @@
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: repeat(4, 0.25fr);
-    background-color: #a6e9d7;
+    background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);
+}
+
+.gamePageContainer h4 {
+    grid-column: 1 / -1;
+    margin: auto;
+    color: #4c4c4c;
 }
 
 textarea {
@@ -23,4 +29,17 @@ textarea {
     grid-column: 4/10;
     grid-row: 2;
     background-color: #ffffff;
+    padding: 1%;
+}
+
+.messages {
+    grid-row: 2;
+    height: 300px;
+    overflow: scroll;
+}
+
+#chat-input {
+    background-color: #f7f7f7;
+    text-align: center;
+    padding: 2%;
 }
