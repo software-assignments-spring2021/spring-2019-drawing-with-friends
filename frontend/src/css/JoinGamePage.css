@@ -1,13 +1,23 @@
 .joinGameContainer {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(5, 1fr);
-    justify-items: center;
-    align-content: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
+    margin-top: 30vh;
 }
 
-form {
-    grid-column: 3;
-    grid-row: 3;
+.joinGameContainer input[type=text] {
+    text-align: center;
+    border-bottom: 1px solid #adadad;
+    color: #2d2d2d;
+}
+
+.joinGameContainer ::placeholder {
+    color: #727272;
+}
+
+.joinGameContainer input[type=submit] {
+    padding: 2%;
+    border-radius: 5px;
 }

@@ -1,18 +1,27 @@
+body {
+    background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);
+}
+
 .createGameContainer {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(5, 1fr);
-    justify-items: center;
-    align-content: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
+    margin-top: 30vh;
 }
 
-.createGameContainer h2 {
-    grid-row: 3;
-    font-size: 3em;
+.createGameForm input[type=text] {
+    text-align: center;
+    border-bottom: 1px solid #adadad;
+    color: #2d2d2d;
 }
 
-.createGameContainer p {
-    grid-row: 4;
-    font-size: 2em;
+.createGameForm ::placeholder {
+    color: #727272;
+}
+
+.createGameForm input[type=submit] {
+    padding: 5%;
+    border-radius: 5px;
 }

@@ -19,13 +19,17 @@ class Chat extends React.Component {
   }
 
   renderChatMessages () {
-    return this.state.chatMessages.map((message, index) => {
+    const messages = this.state.chatMessages.map((message, index) => {
       return (
         <p key={index}>
           {message.name}: {message.message}
         </p>
       )
     })
+
+    return <div className='messages'>
+      {messages}
+    </div>
   }
 
   sendMessage (e) {
@@ -40,9 +44,7 @@ class Chat extends React.Component {
   render () {
     return (
       <div className='chatContainer'>
-        <div className='chatInfo'>
-            Chat!
-        </div>
+        {this.renderChatMessages()}
         <form id="chat-input" onSubmit={this.sendMessage.bind(this)} >
           <input
             type="text"
@@ -52,7 +54,6 @@ class Chat extends React.Component {
           />
           <input type="submit" value="Send"/>
         </form>
-        {this.renderChatMessages()}
       </div>
     )
   }
