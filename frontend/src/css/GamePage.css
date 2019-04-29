@@ -43,3 +43,31 @@ textarea {
     text-align: center;
     padding: 2%;
 }
+
+/** Styles for the modal **/
+.instructionsModal {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.instructionsModalContent {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    width: 40%;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.instructionsModalContent button {
+    padding: 2%;
+    border-radius: 15px;
+    background-color: #4285F4;
+    color: white;
+}
