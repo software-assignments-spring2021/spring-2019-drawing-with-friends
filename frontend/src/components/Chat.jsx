@@ -14,6 +14,8 @@ class Chat extends React.Component {
       const chatDiv = document.getElementsByClassName('messages')[0]
       chatDiv.scrollTop = chatDiv.scrollHeight
     })
+
+    this.props.socket.emit('get-chat-history')
   }
 
   handleChange (e) {

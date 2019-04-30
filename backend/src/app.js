@@ -36,6 +36,10 @@ server.on('connection', (socket) => {
     }
   })
 
+  socket.on('get-chat-history', () => {
+    if (playersRooms[socket.id]) { playersRooms[socket.id].getChatHistory() }
+  })
+
   socket.on('chat', (chatMessage) => {
     if (playersRooms[socket.id]) { playersRooms[socket.id].chat(chatMessage) }
   })
