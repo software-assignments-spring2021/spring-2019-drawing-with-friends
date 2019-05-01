@@ -19,7 +19,6 @@ class GamePage extends React.Component {
     this.startGame = this.startGame.bind(this)
 
     this.props.socket.on('timer-update', (timeRemaining) => {
-      console.log(`remaining: ${this.state.gameObject.timeRemaining}`)
       this.setState({
         gameObject: {
           timeRemaining: timeRemaining
@@ -59,7 +58,6 @@ class GamePage extends React.Component {
   }
 
   render () {
-    console.log(this.state)
     return (
       <React.Fragment>
         {this.state.isModalOpen ? this.showModal() : ''}
