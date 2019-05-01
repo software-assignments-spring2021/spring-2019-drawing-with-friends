@@ -1,11 +1,12 @@
 export default class Room {
-  constructor (roomId, roomCreator, server, roomCreatorName) {
+  constructor (roomId, roomCreator, server, roomCreatorName, game) {
     this.server = server
     this.roomId = roomId
     this.roomMembers = []
     this.roomMembers.push({ playerId: roomCreator, name: roomCreatorName })
     this.roomAdmin = roomCreator
     this.chatMessages = []
+    this.gameSession = game
   }
 
   addPlayer (id, name) {

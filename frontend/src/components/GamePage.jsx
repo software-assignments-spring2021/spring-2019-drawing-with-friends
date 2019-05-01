@@ -7,10 +7,25 @@ class GamePage extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      isModalOpen: true
+      isModalOpen: true,
+      gameObject: {
+        timeRemaining: 0,
+        roundsRemaining: 2,
+        isGameOver: false,
+        isGameStarted: false
+      }
     }
-
     this.closeModal = this.closeModal.bind(this)
+    this.startGame = this.startGame.bind(this)
+
+    this.props.socket.on('timer-update', (timeRemaining) => {
+      console.log(`remaining: ${this.state.gameObject.timeRemaining}`)
+      this.setState({
+        gameObject: {
+          timeRemaining: timeRemaining
+        }
+      })
+    })
   }
 
   showModal () {
@@ -33,7 +48,18 @@ class GamePage extends React.Component {
     })
   }
 
+  startGame (e) {
+    e.preventDefault()
+    let gameCopy = Object.assign({}, this.state.gameObject)
+    gameCopy.isGameStarted = true
+    this.setState({
+      gameObject: gameCopy
+    })
+    this.props.socket.emit('start-game')
+  }
+
   render () {
+    console.log(this.state)
     return (
       <React.Fragment>
         {this.state.isModalOpen ? this.showModal() : ''}
@@ -61,8 +87,9 @@ class GamePage extends React.Component {
               <p>Sed</p>
               <p>Do</p>
             </div>
-            <button>Start Game</button>
+            <button onClick={this.startGame}>Start Game</button>
           </div>
+          <h4>{this.state.gameObject.timeRemaining}</h4>
         </div>
       </React.Fragment>
     )
