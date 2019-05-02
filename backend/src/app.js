@@ -59,7 +59,12 @@ server.on('connection', (socket) => {
 
   socket.on('draw', (data) => {
     history.push(data)
-    if (playersRooms[socket.id]) socket.to(playersRooms[socket.id].roomId).emit('draw', data)
+    if (playersRooms[socket.id] &&
+        playersRooms[socket.id].gameSession.gameState.drawer &&
+        playersRooms[socket.id].gameSession.gameState.drawer.playerId === socket.id
+    ) {
+      server.to(playersRooms[socket.id].roomId).emit('draw', data)
+    }
   })
 
   socket.on('erase-all', () => {

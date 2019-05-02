@@ -8,7 +8,7 @@ class GamePage extends React.Component {
     super(props)
     this.state = {
       isModalOpen: true,
-      gameState: { players: [] },
+      gameState: { players: [], drawer: {} },
       timerObject: {
         timeRemaining: 0,
         roundsRemaining: 2,
@@ -78,7 +78,7 @@ class GamePage extends React.Component {
         <div className='gamePageContainer'>
           <h4>Share this code with your friends: {this.props.roomId}</h4>
           <div className='canvasContainer'>
-            <Canvas socket={this.props.socket} />
+            <Canvas socket={this.props.socket} drawer={this.state.gameState.drawer} />
           </div>
           <Chat socket={this.props.socket} playerName={this.props.playerName}/>
           <div className='playerList'>
