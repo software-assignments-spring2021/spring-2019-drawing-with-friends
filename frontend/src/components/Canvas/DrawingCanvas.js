@@ -7,7 +7,7 @@ import eraserPng from '../../images/Eraser.png'
 
 let history = []
 
-export default function (socket) {
+export default function (socket, drawer) {
   return function (p) {
     // Variables
     let tool = 'circle' // Currently selected tool "circle", "square", "eraser")
@@ -121,7 +121,6 @@ export default function (socket) {
       p.noStroke() // Remove default stroke line
       p.fill(color) // Set color
 
-      //
       if (p.mouseIsPressed && p.mouseX > 38 && p.mouseY > 50) {
         let data = {
           x: p.mouseX,
@@ -129,15 +128,6 @@ export default function (socket) {
           tool: tool,
           color: color,
           size: size
-        }
-
-        if (tool === 'circle') {
-          p.ellipse(p.mouseX, p.mouseY, size, size)
-        } else if (tool === 'square') {
-          p.rect(p.mouseX - (size / 2), p.mouseY - (size / 2), size, size)
-        } else if (tool === 'eraser') {
-          color = [...colors['white']]
-          p.ellipse(p.mouseX, p.mouseY, size, size)
         }
 
         socket.emit('draw', data)
