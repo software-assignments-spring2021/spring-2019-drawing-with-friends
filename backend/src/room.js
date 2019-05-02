@@ -1,12 +1,12 @@
+import Game from './game'
+
 export default class Room {
-  constructor (roomId, roomCreator, server, roomCreatorName, game) {
+  constructor (roomId, roomCreator, server, roomCreatorName) {
     this.server = server
     this.roomId = roomId
     this.roomMembers = []
     this.roomMembers.push({ playerId: roomCreator, name: roomCreatorName })
-    this.roomAdmin = roomCreator
     this.chatMessages = []
-    this.gameSession = game
   }
 
   addPlayer (id, name) {
@@ -24,5 +24,10 @@ export default class Room {
 
   removePlayer (player) {
     this.roomMembers = this.roomMembers.filter(playerObj => player !== playerObj.playerId)
+  }
+
+  startGame () {
+    this.gameSession = new Game(this.server, this.roomId)
+    this.gameSession.startTimer()
   }
 }

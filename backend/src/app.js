@@ -17,8 +17,7 @@ server.on('connection', (socket) => {
     const { roomId, name } = roomData
     if (!rooms[roomId]) {
       socket.join(roomData.roomId)
-      const gameSession = new Game(server, roomId)
-      rooms[roomId] = new Room(roomId, socket.id, server, name, gameSession)
+      rooms[roomId] = new Room(roomId, socket.id, server, name)
       playersRooms[socket.id] = rooms[roomId]
       socket.emit('confirm-valid-room-code')
     } else {
@@ -28,7 +27,7 @@ server.on('connection', (socket) => {
 
   socket.on('join-room', (roomData) => {
     const { roomId, name } = roomData
-    if (rooms[roomId]) {
+    if (rooms[roomId] && !rooms[roomId].gameSession) {
       socket.join(roomData.roomId)
       rooms[roomId].addPlayer(socket.id, name)
       playersRooms[socket.id] = rooms[roomId]
@@ -47,7 +46,7 @@ server.on('connection', (socket) => {
   })
 
   socket.on('start-game', () => {
-    if (playersRooms[socket.id]) playersRooms[socket.id].gameSession.startGame()
+    if (playersRooms[socket.id]) playersRooms[socket.id].startGame()
   })
 
   if (history.length !== 0) {
