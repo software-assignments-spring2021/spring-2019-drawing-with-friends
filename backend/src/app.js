@@ -19,6 +19,7 @@ server.on('connection', (socket) => {
       socket.join(roomData.roomId)
       const gameSession = new Game(server, roomId)
       rooms[roomId] = new Room(roomId, socket.id, server, name, gameSession)
+      gameSession.assignRoom(rooms[roomId])
       playersRooms[socket.id] = rooms[roomId]
       socket.emit('confirm-valid-room-code')
     } else {
