@@ -8,7 +8,7 @@
     "start-dev": "nodemon --exec babel-node src/app.js",
     "build": "babel src --out-dir build",
     "lint": "eslint --ext .js src --fix",
-    "test": "nyc mocha --require @babel/register test"
+    "test": "nyc mocha --require @babel/register test --exit"
   },
   "author": "",
   "license": "ISC",
