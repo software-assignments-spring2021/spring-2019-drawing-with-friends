@@ -8,7 +8,7 @@
     "start-dev": "nodemon --exec babel-node src/app.js",
     "build": "babel src --out-dir build",
     "lint": "eslint --ext .js src --fix",
-    "test": "nyc mocha --require @babel/register test"
+    "test": "nyc mocha --require @babel/register test --exit"
   },
   "author": "",
   "license": "ISC",
@@ -30,6 +30,7 @@
     "eslint-plugin-standard": "^4.0.0",
     "mocha": "^6.1.4",
     "nodemon": "^1.18.10",
-    "nyc": "^14.1.0"
+    "nyc": "^14.1.0",
+    "socket.io-client": "^2.2.0"
   }
 }
