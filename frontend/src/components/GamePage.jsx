@@ -29,6 +29,7 @@ class GamePage extends React.Component {
 
     this.props.socket.on('game-update', (gameState) => {
       this.setState({ gameState })
+      console.log(gameState)
     })
 
     this.props.socket.emit('get-game-update')

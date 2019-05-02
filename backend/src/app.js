@@ -1,7 +1,7 @@
 import io from 'socket.io'
 import Room from './room'
-import Game from './game'
-let port = process.env.PORT || 3000
+
+const port = process.env.PORT || 3000
 const server = io.listen(port)
 
 let history = []
@@ -38,11 +38,11 @@ server.on('connection', (socket) => {
   })
 
   socket.on('get-chat-history', () => {
-    if (playersRooms[socket.id]) { playersRooms[socket.id].getChatHistory() }
+    if (playersRooms[socket.id]) playersRooms[socket.id].getChatHistory()
   })
 
   socket.on('chat', (chatMessage) => {
-    if (playersRooms[socket.id]) { playersRooms[socket.id].chat(chatMessage) }
+    if (playersRooms[socket.id]) playersRooms[socket.id].chat(chatMessage)
   })
 
   socket.on('start-game', () => {
@@ -50,7 +50,7 @@ server.on('connection', (socket) => {
   })
 
   socket.on('get-game-update', () => {
-    if (playersRooms[socket.id]) { server.to(socket.id).emit('game-update', playersRooms[socket.id].gameSession.gameState) }
+    if (playersRooms[socket.id]) server.to(socket.id).emit('game-update', playersRooms[socket.id].gameSession.gameState)
   })
 
   if (history.length !== 0) {
@@ -59,16 +59,12 @@ server.on('connection', (socket) => {
 
   socket.on('draw', (data) => {
     history.push(data)
-    if (playersRooms[socket.id]) {
-      socket.to(playersRooms[socket.id].roomId).emit('draw', data)
-    }
+    if (playersRooms[socket.id]) socket.to(playersRooms[socket.id].roomId).emit('draw', data)
   })
 
   socket.on('erase-all', () => {
     history = []
-    if (playersRooms[socket.id]) {
-      socket.to(playersRooms[socket.id].roomId).emit('erase-all')
-    }
+    if (playersRooms[socket.id]) socket.to(playersRooms[socket.id].roomId).emit('erase-all')
   })
 
   socket.on('undo', () => {
