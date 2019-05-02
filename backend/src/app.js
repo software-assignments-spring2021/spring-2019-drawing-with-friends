@@ -27,9 +27,9 @@ server.on('connection', (socket) => {
 
   socket.on('join-room', (roomData) => {
     const { roomId, name } = roomData
-    if (rooms[roomId] && !rooms[roomId].gameSession) {
+    if (rooms[roomId] && !rooms[roomId].gameSession.gameIsStarted) {
       socket.join(roomData.roomId)
-      rooms[roomId].addPlayer(socket.id, name)
+      rooms[roomId].gameSession.addPlayer(socket.id, name)
       playersRooms[socket.id] = rooms[roomId]
       socket.emit('confirm-valid-room-code')
     } else {
@@ -46,7 +46,11 @@ server.on('connection', (socket) => {
   })
 
   socket.on('start-game', () => {
-    if (playersRooms[socket.id]) playersRooms[socket.id].startGame()
+    if (playersRooms[socket.id]) playersRooms[socket.id].gameSession.startGame()
+  })
+
+  socket.on('get-game-update', () => {
+    if (playersRooms[socket.id]) { server.to(socket.id).emit('game-update', playersRooms[socket.id].gameSession.gameState) }
   })
 
   if (history.length !== 0) {
@@ -78,8 +82,8 @@ server.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     if (playersRooms[socket.id]) {
-      playersRooms[socket.id].removePlayer(socket.id)
-      if (playersRooms[socket.id].roomMembers.length === 0) {
+      playersRooms[socket.id].gameSession.removePlayer(socket.id)
+      if (playersRooms[socket.id].gameSession.gameState.players.length === 0) {
         delete rooms[playersRooms[socket.id].roomId]
       }
       delete playersRooms[socket.id]

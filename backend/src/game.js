@@ -2,16 +2,36 @@ export default class Game {
   constructor (server, roomId) {
     this.server = server
     this.roomId = roomId
+    this.gameIsStarted = false
     this.timeRemaining = 60 // How much time is remaining in the current round
     this.roundsRemaining = 2 // How many rounds are left until the game is over
+
     const proxyUpdateHandler = {
-      set: () => {
+      set: (obj, prop, value) => {
+        obj[prop] = value
         this.server.in(this.roomId).emit('game-update', this.gameState)
+        return true
       }
     }
     this.gameState = new Proxy({
-      isGameOver: false
+      isGameOver: false,
+      players: []
     }, proxyUpdateHandler)
+    this.server.in(this.roomId).emit('game-update', this.gameState)
+  }
+
+  addPlayer (id, name) {
+    this.gameState.players.push({ playerId: id, name: name, connected: true, score: 0 })
+    this.server.in(this.roomId).emit('game-update', this.gameState)
+  }
+
+  removePlayer (playerId) {
+    this.gameState.players = this.gameState.players.filter(player => playerId !== player.playerId)
+  }
+
+  startGame () {
+    this.gameIsStarted = true
+    this.startTimer()
   }
 
   startTimer () {
