@@ -21,7 +21,8 @@ export default class Room {
   systemChat (systemMessage) {
     this.chatMessages.push({
       name: "System",
-      message: systemMessage
+      message: systemMessage,
+      isSystem: true
     })
     this.server.in(this.roomId).emit('chat-update', this.chatMessages)
   }

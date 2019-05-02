@@ -24,11 +24,19 @@ class Chat extends React.Component {
 
   renderChatMessages () {
     const messages = this.state.chatMessages.map((message, index) => {
-      return (
-        <p key={index}>
-          {message.name}: {message.message}
-        </p>
-      )
+      if("isSystem" in message && message.isSystem == true){
+        return (
+          <p key={index} style="color:red">
+            {message.name}: {message.message}
+          </p>
+        )
+      }else{
+        return (
+          <p key={index}>
+            {message.name}: {message.message}
+          </p>
+        )
+      }
     })
 
     return <div className='messages'>
