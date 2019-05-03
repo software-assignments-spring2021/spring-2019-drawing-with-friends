@@ -1,4 +1,5 @@
 import sleep from './utils/sleep.js'
+import wordBank from './utils/wordbank'
 
 export default class Game {
   constructor (server, roomId) {
@@ -15,9 +16,11 @@ export default class Game {
       }
     }
     this.gameState = new Proxy({
+      isGameStarted: false,
       isGameOver: false,
       players: [],
-      drawer: undefined
+      drawer: undefined,
+      currentWord: undefined
     }, proxyUpdateHandler)
   }
 
@@ -32,12 +35,16 @@ export default class Game {
 
   async startGame () {
     this.gameIsStarted = true
+    this.gameState.isGameStarted = true
     const turnQueue = [...this.gameState.players, ...this.gameState.players]
+    const wordbank = wordBank()
+    this.gameState.currentWord = wordbank.shift()
 
     while (turnQueue.length > 0) {
       const potentialDrawer = turnQueue.shift()
       if (this.gameState.players.includes(potentialDrawer)) {
         this.gameState.drawer = potentialDrawer
+        this.gameState.currentWord = wordbank.shift()
       } else {
         continue
       }
