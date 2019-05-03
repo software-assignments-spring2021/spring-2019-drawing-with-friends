@@ -1,5 +1,6 @@
 import { describe } from 'mocha'
 import { expect } from 'chai'
+import 'regenerator-runtime'
 let app = require('../src/app')
 let io = require('socket.io-client')
 
@@ -12,23 +13,23 @@ let options = {
   'reconnection delay': 0
 }
 
-describe('Backend suite of unit tests', function() {
-  let socket;
-  let socket2;
+describe('Backend suite of unit tests', function () {
+  let socket
+  let socket2
 
-  beforeEach(function(done) {
+  beforeEach(function (done) {
     socket = io.connect(socketURL, options)
-    socket.on('connect', function() {
-      //console.log('socket connection initialized')
+    socket.on('connect', function () {
+      // console.log('socket connection initialized')
       done()
     })
-    socket.on('disconnect', function() {
-      //console.log('socket connection terminated')
+    socket.on('disconnect', function () {
+      // console.log('socket connection terminated')
     })
   })
 
-  afterEach(function(done) {
-    if(socket.connected) {
+  afterEach(function (done) {
+    if (socket.connected) {
       socket.disconnect()
     }
     done()
@@ -39,19 +40,19 @@ describe('Backend suite of unit tests', function() {
       expect(socket).to.not.be.null
       done()
     })
-  
-    it('creates a room', function(done) {
+
+    it('creates a room', function (done) {
       socket.emit('create-room', 'TEST')
-      socket.on('confirm-valid-room-code', function() {
+      socket.on('confirm-valid-room-code', function () {
         done()
       })
     })
 
-    it('joins a room', function(done) {
+    it('joins a room', function (done) {
       socket.emit('create-room', 'TEST')
       socket2 = io.connect(socketURL, options)
       socket2.emit('join-room', 'TEST')
-      socket2.on('confirm-valid-room-code', function() {
+      socket2.on('confirm-valid-room-code', function () {
         done()
       })
     })
