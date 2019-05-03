@@ -27,7 +27,7 @@ server.on('connection', (socket) => {
 
   socket.on('join-room', (roomData) => {
     const { roomId, name } = roomData
-    if (rooms[roomId] && !rooms[roomId].gameSession.gameIsStarted) {
+    if (rooms[roomId] && !rooms[roomId].gameSession.gameState.isGameStarted) {
       socket.join(roomData.roomId)
       rooms[roomId].gameSession.addPlayer(socket.id, name)
       playersRooms[socket.id] = rooms[roomId]

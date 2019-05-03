@@ -6,7 +6,6 @@ export default class Game {
   constructor (server, roomId) {
     this.server = server
     this.roomId = roomId
-    this.gameIsStarted = false
     this.timeRemaining = 0
 
     const proxyUpdateHandler = {
@@ -35,7 +34,6 @@ export default class Game {
   }
 
   async startGame () {
-    this.gameIsStarted = true
     this.gameState.isGameStarted = true
     const turnQueue = [...this.gameState.players, ...this.gameState.players]
     const wordbank = wordBank()
