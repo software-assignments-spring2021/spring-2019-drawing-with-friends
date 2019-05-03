@@ -13,7 +13,6 @@ class GamePage extends React.Component {
         timeRemaining: 0,
         roundsRemaining: 2,
         isGameOver: false,
-        isGameStarted: false
       }
     }
     this.closeModal = this.closeModal.bind(this)
@@ -57,11 +56,6 @@ class GamePage extends React.Component {
 
   startGame (e) {
     e.preventDefault()
-    let gameCopy = Object.assign({}, this.state.gameObject)
-    gameCopy.isGameStarted = true
-    this.setState({
-      gameObject: gameCopy
-    })
     this.props.socket.emit('start-game')
   }
 
@@ -76,7 +70,9 @@ class GamePage extends React.Component {
 
   renderPlayers () {
     return this.state.gameState.players.map((player) => {
-      return <p key={player.playerId}>{player.name}</p>
+      return this.state.gameState.isGameStarted
+        ? <p key={player.playerId}>{player.name}: {player.score}</p>
+        : <p key={player.playerId}>{player.name}</p>
     })
   }
 
