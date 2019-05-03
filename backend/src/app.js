@@ -69,7 +69,12 @@ server.on('connection', (socket) => {
 
   socket.on('erase-all', () => {
     history = []
-    if (playersRooms[socket.id]) socket.to(playersRooms[socket.id].roomId).emit('erase-all')
+    if (playersRooms[socket.id] &&
+        playersRooms[socket.id].gameSession.gameState.drawer &&
+        playersRooms[socket.id].gameSession.gameState.drawer.playerId === socket.id
+    ) {
+      if (playersRooms[socket.id]) server.to(playersRooms[socket.id].roomId).emit('erase-all')
+    }
   })
 
   socket.on('undo', () => {
