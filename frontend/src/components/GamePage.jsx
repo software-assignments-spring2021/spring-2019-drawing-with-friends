@@ -65,6 +65,15 @@ class GamePage extends React.Component {
     this.props.socket.emit('start-game')
   }
 
+  renderMessageBar () {
+    const { currentWord, drawer, isGameStarted } = this.state.gameState
+    return isGameStarted && drawer
+      ? drawer.playerId === this.props.socket.id
+        ? <h4>You are drawing {currentWord}</h4>
+        : <h4>{drawer.name} is currently drawing</h4>
+      : <h4>Share this code with your friends: {this.props.roomId}</h4>
+  }
+
   renderPlayers () {
     return this.state.gameState.players.map((player) => {
       return <p key={player.playerId}>{player.name}</p>
@@ -76,7 +85,7 @@ class GamePage extends React.Component {
       <>
         {this.state.isModalOpen ? this.showModal() : ''}
         <div className='gamePageContainer'>
-          <h4>Share this code with your friends: {this.props.roomId}</h4>
+          {this.renderMessageBar()}
           <div className='canvasContainer'>
             <Canvas socket={this.props.socket} drawer={this.state.gameState.drawer} />
           </div>

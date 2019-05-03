@@ -8,5 +8,5 @@ export default function () {
     'pineapple', 'orange', 'watermelon', 'lemon', 'kiwi', 'avocado', 'durian', 'cucumber', 'tomato', 'doctor',
     'teacher', 'firefighter', 'police', 'farmer', 'janitor', 'athlete', 'chef', 'lifeguard', 'president', 'librarian',
     'sumo wrestler', 'soldier', 'babysitter'
-  ]
+  ].sort(() => Math.random() - 0.5)
 }
