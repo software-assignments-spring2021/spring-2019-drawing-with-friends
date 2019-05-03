@@ -16,8 +16,8 @@ server.on('connection', (socket) => {
   socket.on('create-room', (roomData) => {
     const { roomId, name } = roomData
     if (!rooms[roomId]) {
-      socket.join(roomData.roomId)
-      rooms[roomId] = new Room(roomId, socket.id, server, name.trim())
+      socket.join(roomId)
+      rooms[roomId] = new Room(roomId, socket.id, server, name)
       playersRooms[socket.id] = rooms[roomId]
       socket.emit('confirm-valid-room-code')
     } else {
@@ -28,8 +28,8 @@ server.on('connection', (socket) => {
   socket.on('join-room', (roomData) => {
     const { roomId, name } = roomData
     if (rooms[roomId] && !rooms[roomId].gameSession.gameState.isGameStarted) {
-      socket.join(roomData.roomId.trim())
-      rooms[roomId].gameSession.addPlayer(socket.id, name.trim())
+      socket.join(roomId)
+      rooms[roomId].gameSession.addPlayer(socket.id, name)
       playersRooms[socket.id] = rooms[roomId]
       socket.emit('confirm-valid-room-code')
     } else {

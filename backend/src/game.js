@@ -61,6 +61,8 @@ export default class Game {
       await sleep(5000)
       this.pointsForTheRound = {}
     }
+
+    this.gameState.isGameOver = true
   }
 
   verifyChat (chatMessage, socketId) {
