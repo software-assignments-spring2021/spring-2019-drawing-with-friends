@@ -10,10 +10,7 @@ class GamePage extends React.Component {
       isModalOpen: true,
       gameState: { players: [], drawer: {} },
       timerObject: {
-        timeRemaining: 0,
-        roundsRemaining: 2,
-        isGameOver: false,
-        isGameStarted: false
+        timeRemaining: 0
       }
     }
     this.closeModal = this.closeModal.bind(this)
@@ -57,11 +54,6 @@ class GamePage extends React.Component {
 
   startGame (e) {
     e.preventDefault()
-    let gameCopy = Object.assign({}, this.state.gameObject)
-    gameCopy.isGameStarted = true
-    this.setState({
-      gameObject: gameCopy
-    })
     this.props.socket.emit('start-game')
   }
 
@@ -76,7 +68,9 @@ class GamePage extends React.Component {
 
   renderPlayers () {
     return this.state.gameState.players.map((player) => {
-      return <p key={player.playerId}>{player.name}</p>
+      return this.state.gameState.isGameStarted
+        ? <p key={player.playerId}>{player.name}: {player.score}</p>
+        : <p key={player.playerId}>{player.name}</p>
     })
   }
 
@@ -87,7 +81,7 @@ class GamePage extends React.Component {
         <div className='gamePageContainer'>
           {this.renderMessageBar()}
           <div className='canvasContainer'>
-            <Canvas socket={this.props.socket} drawer={this.state.gameState.drawer} />
+            <Canvas socket={this.props.socket}/>
           </div>
           <Chat socket={this.props.socket} playerName={this.props.playerName}/>
           <div className='playerList'>

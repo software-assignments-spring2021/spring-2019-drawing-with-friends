@@ -7,7 +7,7 @@ import eraserPng from '../../images/Eraser.png'
 
 let history = []
 
-export default function (socket, drawer) {
+export default function (socket) {
   return function (p) {
     // Variables
     let tool = 'circle' // Currently selected tool "circle", "square", "eraser")
@@ -249,7 +249,6 @@ export default function (socket, drawer) {
 
       // Erase all
       if (p.mouseX > 250 && p.mouseX < 350 && p.mouseY > 65 && p.mouseY < 90) {
-        p.background(255)
         socket.emit('erase-all')
       }
     }

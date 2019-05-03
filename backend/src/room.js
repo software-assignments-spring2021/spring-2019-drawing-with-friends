@@ -9,8 +9,8 @@ export default class Room {
     this.chatMessages = []
   }
 
-  chat (chatMessage) {
-    this.chatMessages.push(chatMessage)
+  chat (chatMessage, socketId) {
+    this.chatMessages.push(this.gameSession.verifyChat(chatMessage, socketId))
     this.server.in(this.roomId).emit('chat-update', this.chatMessages)
   }
 

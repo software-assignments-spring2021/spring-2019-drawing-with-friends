@@ -16,7 +16,7 @@ server.on('connection', (socket) => {
   socket.on('create-room', (roomData) => {
     const { roomId, name } = roomData
     if (!rooms[roomId]) {
-      socket.join(roomData.roomId)
+      socket.join(roomId)
       rooms[roomId] = new Room(roomId, socket.id, server, name)
       playersRooms[socket.id] = rooms[roomId]
       socket.emit('confirm-valid-room-code')
@@ -28,7 +28,7 @@ server.on('connection', (socket) => {
   socket.on('join-room', (roomData) => {
     const { roomId, name } = roomData
     if (rooms[roomId] && !rooms[roomId].gameSession.gameState.isGameStarted) {
-      socket.join(roomData.roomId)
+      socket.join(roomId)
       rooms[roomId].gameSession.addPlayer(socket.id, name)
       playersRooms[socket.id] = rooms[roomId]
       socket.emit('confirm-valid-room-code')
@@ -42,7 +42,7 @@ server.on('connection', (socket) => {
   })
 
   socket.on('chat', (chatMessage) => {
-    if (playersRooms[socket.id]) playersRooms[socket.id].chat(chatMessage)
+    if (playersRooms[socket.id]) playersRooms[socket.id].chat(chatMessage, socket.id)
   })
 
   socket.on('start-game', () => {
@@ -69,7 +69,12 @@ server.on('connection', (socket) => {
 
   socket.on('erase-all', () => {
     history = []
-    if (playersRooms[socket.id]) socket.to(playersRooms[socket.id].roomId).emit('erase-all')
+    if (playersRooms[socket.id] &&
+        playersRooms[socket.id].gameSession.gameState.drawer &&
+        playersRooms[socket.id].gameSession.gameState.drawer.playerId === socket.id
+    ) {
+      if (playersRooms[socket.id]) server.to(playersRooms[socket.id].roomId).emit('erase-all')
+    }
   })
 
   socket.on('undo', () => {
