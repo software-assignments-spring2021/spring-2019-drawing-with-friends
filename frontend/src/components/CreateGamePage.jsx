@@ -29,7 +29,7 @@ class CreateGamePage extends React.Component {
   }
 
   handleChange (e) {
-    this.setState({ name: e.target.value })
+    this.setState({ name: e.target.value.trim() })
   }
 
   handleSubmit (e) {
@@ -44,7 +44,7 @@ class CreateGamePage extends React.Component {
         : <div className='createGameContainer'>
           <form onSubmit={this.handleSubmit.bind(this)} className='createGameForm'>
             <input type='text' placeholder='Enter your name' onChange={this.handleChange.bind(this)}/>
-            <input type="submit" value="Join" disabled={!this.state.name} />
+            <input type="submit" value="Create" disabled={!this.state.name} />
           </form>
         </div>
     )

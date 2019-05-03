@@ -8,11 +8,9 @@ class GamePage extends React.Component {
     super(props)
     this.state = {
       isModalOpen: true,
-      gameObject: {
-        timeRemaining: 0,
-        roundsRemaining: 2,
-        isGameOver: false,
-        isGameStarted: false
+      gameState: { players: [], drawer: {} },
+      timerObject: {
+        timeRemaining: 0
       }
     }
     this.closeModal = this.closeModal.bind(this)
@@ -20,11 +18,17 @@ class GamePage extends React.Component {
 
     this.props.socket.on('timer-update', (timeRemaining) => {
       this.setState({
-        gameObject: {
+        timerObject: {
           timeRemaining: timeRemaining
         }
       })
     })
+
+    this.props.socket.on('game-update', (gameState) => {
+      this.setState({ gameState })
+    })
+
+    this.props.socket.emit('get-game-update')
   }
 
   showModal () {
@@ -49,47 +53,45 @@ class GamePage extends React.Component {
 
   startGame (e) {
     e.preventDefault()
-    let gameCopy = Object.assign({}, this.state.gameObject)
-    gameCopy.isGameStarted = true
-    this.setState({
-      gameObject: gameCopy
-    })
     this.props.socket.emit('start-game')
+  }
+
+  renderMessageBar () {
+    const { currentWord, drawer, isGameStarted } = this.state.gameState
+    return isGameStarted && drawer
+      ? drawer.playerId === this.props.socket.id
+        ? <h4>You are drawing {currentWord}</h4>
+        : <h4>{drawer.name} is currently drawing</h4>
+      : <h4>Share this code with your friends: {this.props.roomId}</h4>
+  }
+
+  renderPlayers () {
+    return this.state.gameState.players.map((player) => {
+      return this.state.gameState.isGameStarted
+        ? <p key={player.playerId}>{player.name}: {player.score}</p>
+        : <p key={player.playerId}>{player.name}</p>
+    })
   }
 
   render () {
     return (
-      <React.Fragment>
+      <>
         {this.state.isModalOpen ? this.showModal() : ''}
         <div className='gamePageContainer'>
-          <h4>Share this code with your friends: {this.props.roomId}</h4>
+          {this.renderMessageBar()}
           <div className='canvasContainer'>
-            <Canvas socket={this.props.socket} />
+            <Canvas socket={this.props.socket}/>
           </div>
           <Chat socket={this.props.socket} playerName={this.props.playerName}/>
           <div className='playerList'>
             <div className='playerNames'>
-              <p>Insert</p>
-              <p>Player</p>
-              <p>Names</p>
-              <p>Here</p>
-              <p>Later</p>
-              <p>Lorem</p>
-              <p>Ipsum</p>
-              <p>Dolor</p>
-              <p>Sit</p>
-              <p>Amet</p>
-              <p>Consectetur</p>
-              <p>Adipiscing</p>
-              <p>Elit</p>
-              <p>Sed</p>
-              <p>Do</p>
+              {this.renderPlayers()}
             </div>
             <button onClick={this.startGame}>Start Game</button>
           </div>
-          <h4>{this.state.gameObject.timeRemaining}</h4>
+          <h4>{this.state.timerObject.timeRemaining}</h4>
         </div>
-      </React.Fragment>
+      </>
     )
   }
 }

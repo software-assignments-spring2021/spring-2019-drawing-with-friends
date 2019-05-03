@@ -5,8 +5,6 @@ import circlePng from '../../images/Circle.png'
 import squarePng from '../../images/Square.png'
 import eraserPng from '../../images/Eraser.png'
 
-let history = []
-
 export default function (socket) {
   return function (p) {
     // Variables
@@ -65,55 +63,11 @@ export default function (socket) {
           } else if (data.tool === 'eraser') {
             p.ellipse(data.x, data.y, data.size, data.size)
           }
-
-          history.push(data)
-        }
-      )
-
-      socket.on('history',
-        function (data) {
-          for (let i = 0; i < data.length; i++) {
-            p.noStroke()
-            p.fill(data[i].color)
-
-            if (data[i].tool === 'circle') {
-              p.ellipse(data[i].x, data[i].y, data[i].size, data[i].size)
-            } else if (data[i].tool === 'square') {
-              p.rect(data[i].x - (data[i].size / 2), data[i].y - (data[i].size / 2), data[i].size, data[i].size)
-            } else if (data[i].tool === 'eraser') {
-              p.ellipse(data[i].x, data[i].y, data[i].size, data[i].size)
-            }
-          }
-          history = data
-        }
-      )
-
-      socket.on('undo',
-        function (data) {
-          let last = history.pop()
-          if (last.x === data.x && last.y === data.y) {
-            p.background(255)
-            for (let i = 0; i < history.length; i++) {
-              p.noStroke()
-              p.fill(data.color)
-
-              if (data[i].tool === 'circle') {
-                p.ellipse(data[i].x, data[i].y, data[i].size, data[i].size)
-              } else if (data[i].tool === 'square') {
-                p.rect(data[i].x - (data[i].size / 2), data[i].y - (data[i].size / 2), data[i].size, data[i].size)
-              } else if (data[i].tool === 'eraser') {
-                p.ellipse(data[i].x, data[i].y, data[i].size, data[i].size)
-              }
-            }
-          } else {
-            socket.emit('recalibrate')
-          }
         }
       )
 
       socket.on('erase-all', () => {
         p.background(255)
-        history = []
       })
     }
 
@@ -121,7 +75,6 @@ export default function (socket) {
       p.noStroke() // Remove default stroke line
       p.fill(color) // Set color
 
-      //
       if (p.mouseIsPressed && p.mouseX > 38 && p.mouseY > 50) {
         let data = {
           x: p.mouseX,
@@ -129,15 +82,6 @@ export default function (socket) {
           tool: tool,
           color: color,
           size: size
-        }
-
-        if (tool === 'circle') {
-          p.ellipse(p.mouseX, p.mouseY, size, size)
-        } else if (tool === 'square') {
-          p.rect(p.mouseX - (size / 2), p.mouseY - (size / 2), size, size)
-        } else if (tool === 'eraser') {
-          color = [...colors['white']]
-          p.ellipse(p.mouseX, p.mouseY, size, size)
         }
 
         socket.emit('draw', data)
@@ -259,7 +203,6 @@ export default function (socket) {
 
       // Erase all
       if (p.mouseX > 250 && p.mouseX < 350 && p.mouseY > 65 && p.mouseY < 90) {
-        p.background(255)
         socket.emit('erase-all')
       }
     }

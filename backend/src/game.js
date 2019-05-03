@@ -1,39 +1,110 @@
+import 'regenerator-runtime/runtime'
+import sleep from './utils/sleep.js'
+import wordBank from './utils/wordbank'
+import calculatePoints from './utils/calculatePoints'
+
 export default class Game {
-  constructor (server, roomId) {
+  constructor (server, roomId, room) {
     this.server = server
     this.roomId = roomId
-    this.room = null
-    this.timeRemaining = 60 // How much time is remaining in the current round
-    this.roundsRemaining = 2 // How many rounds are left until the game is over
-    this.isGameOver = false // Checks if the game is over or not
-    this.timer = null
-    this.started = false
-    this.currentDrawer = null
+    this.room = room
+    this.timeRemaining = 0
+    this.pointsForTheRound = {}
+    this.shouldScorePoints = false
+
+    const proxyUpdateHandler = {
+      set: (obj, prop, value) => {
+        obj[prop] = value
+        this.server.in(this.roomId).emit('game-update', this.gameState)
+        return true
+      }
+    }
+    this.gameState = new Proxy({
+      isGameStarted: false,
+      isGameOver: false,
+      players: [],
+      drawer: undefined,
+      currentWord: undefined
+    }, proxyUpdateHandler)
   }
 
-  startGame () {
-    if(!this.started || this.isGameOver){
-      this.started = true
-      this.isGameOver = false
-      this.timer = setInterval(() => {
-        if (this.timeRemaining > 0) { // If there is still time on the clock, reduce it
-          this.timeRemaining -= 1
-        } else { // Round is over
-          if (this.roundsRemaining === 0) { // Game is over
-            clearInterval(this.timer) // Stop the timer
-            this.isGameOver = true
-            this.room.systemChat("Game is now over!")
-          } else { // Switch to a new round
-            this.timeRemaining = 60 // Reset the clock for the next round
-            this.roundsRemaining -= 1
-            this.room.systemChat("Time has expired for this round, next round starting!")
+  addPlayer (id, name) {
+    this.gameState.players.push({ playerId: id, name: name, connected: true, score: 0 })
+    this.server.in(this.roomId).emit('game-update', this.gameState)
+  }
+
+  removePlayer (playerId) {
+    this.gameState.players = this.gameState.players.filter(player => playerId !== player.playerId)
+  }
+
+  async startGame () {
+    if (!this.gameState.isGameStarted) {
+      this.gameState.isGameStarted = true
+      const turnQueue = [...this.gameState.players, ...this.gameState.players]
+      let wordbank = wordBank()
+
+      while (turnQueue.length > 0) {
+        const potentialDrawer = turnQueue.shift()
+        if (this.gameState.players.includes(potentialDrawer)) {
+          this.gameState.drawer = potentialDrawer
+          this.room.systemChat("It is " + this.gameState.drawer.name + "'s turn to draw!")
+          if (wordbank.length === 0) {
+            wordbank = wordBank()
           }
+          this.gameState.currentWord = wordbank.shift()
+          this.server.in(this.roomId).emit('erase-all')
+          this.shouldScorePoints = true
+        } else {
+          continue
         }
-        this.server.in(this.roomId).emit('timer-update', this.timeRemaining)
-      }, 1000)
+
+        this.startTimer(60)
+        await sleep(60000)
+        this.shouldScorePoints = false
+        await sleep(5000)
+        this.pointsForTheRound = {}
+      }
+
+      this.gameState.isGameOver = true
     } else {
-      this.room.systemChat("The game has already started!")
+      this.room.systemChat("A game is already underway!")
     }
+  }
+
+  verifyChat (chatMessage, socketId) {
+    const { currentWord, players } = this.gameState
+    if (
+        this.shouldScorePoints
+        && this.gameState.drawer.playerId !== socketId
+        && currentWord === chatMessage.message.trim().toLowerCase()
+    ) {
+      if (!this.pointsForTheRound[socketId]) {
+        this.pointsForTheRound[socketId] = calculatePoints(this.timeRemaining)
+        this.gameState.players = players.map((player) => {
+          if (player.playerId === socketId) {
+            player.score += this.pointsForTheRound[socketId]
+          }
+          return player
+        })
+      }
+      return {
+        name: chatMessage.name,
+        message: chatMessage.message.replace(/./g, '*')
+      }
+    }
+    return chatMessage
+  }
+
+  startTimer (duration) {
+    this.timeRemaining = duration
+    const timer = setInterval(() => {
+      if (this.timeRemaining > 0) {
+        this.timeRemaining -= 1
+      } else {
+        clearInterval(timer)
+      }
+      this.server.in(this.roomId).emit('timer-update', this.timeRemaining)
+    }, 1000)
   }
 
   // Once the room is created to host this game session, the game session should be aware
