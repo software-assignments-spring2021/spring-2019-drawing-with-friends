@@ -37,32 +37,34 @@ export default class Game {
   }
 
   async startGame () {
-    this.gameState.isGameStarted = true
-    const turnQueue = [...this.gameState.players, ...this.gameState.players]
-    let wordbank = wordBank()
+    if (!this.gameState.isGameStarted) {
+      this.gameState.isGameStarted = true
+      const turnQueue = [...this.gameState.players, ...this.gameState.players]
+      let wordbank = wordBank()
 
-    while (turnQueue.length > 0) {
-      const potentialDrawer = turnQueue.shift()
-      if (this.gameState.players.includes(potentialDrawer)) {
-        this.gameState.drawer = potentialDrawer
-        if (wordbank.length === 0) {
-          wordbank = wordBank()
+      while (turnQueue.length > 0) {
+        const potentialDrawer = turnQueue.shift()
+        if (this.gameState.players.includes(potentialDrawer)) {
+          this.gameState.drawer = potentialDrawer
+          if (wordbank.length === 0) {
+            wordbank = wordBank()
+          }
+          this.gameState.currentWord = wordbank.shift()
+          this.server.in(this.roomId).emit('erase-all')
+          this.shouldScorePoints = true
+        } else {
+          continue
         }
-        this.gameState.currentWord = wordbank.shift()
-        this.server.in(this.roomId).emit('erase-all')
-        this.shouldScorePoints = true
-      } else {
-        continue
+
+        this.startTimer(60)
+        await sleep(60000)
+        this.shouldScorePoints = false
+        await sleep(5000)
+        this.pointsForTheRound = {}
       }
 
-      this.startTimer(60)
-      await sleep(60000)
-      this.shouldScorePoints = false
-      await sleep(5000)
-      this.pointsForTheRound = {}
+      this.gameState.isGameOver = true
     }
-
-    this.gameState.isGameOver = true
   }
 
   verifyChat (chatMessage, socketId) {
