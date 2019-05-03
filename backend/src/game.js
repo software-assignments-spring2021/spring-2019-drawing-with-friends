@@ -1,5 +1,6 @@
 import sleep from './utils/sleep.js'
 import wordBank from './utils/wordbank'
+import 'regenerator-runtime/runtime'
 
 export default class Game {
   constructor (server, roomId) {
