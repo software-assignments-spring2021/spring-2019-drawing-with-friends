@@ -10,9 +10,7 @@ class GamePage extends React.Component {
       isModalOpen: true,
       gameState: { players: [], drawer: {} },
       timerObject: {
-        timeRemaining: 0,
-        roundsRemaining: 2,
-        isGameOver: false,
+        timeRemaining: 0
       }
     }
     this.closeModal = this.closeModal.bind(this)
@@ -83,7 +81,7 @@ class GamePage extends React.Component {
         <div className='gamePageContainer'>
           {this.renderMessageBar()}
           <div className='canvasContainer'>
-            <Canvas socket={this.props.socket} drawer={this.state.gameState.drawer} />
+            <Canvas socket={this.props.socket}/>
           </div>
           <Chat socket={this.props.socket} playerName={this.props.playerName}/>
           <div className='playerList'>

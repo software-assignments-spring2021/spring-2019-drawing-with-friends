@@ -7,7 +7,7 @@ import eraserPng from '../../images/Eraser.png'
 
 let history = []
 
-export default function (socket, drawer) {
+export default function (socket) {
   return function (p) {
     // Variables
     let tool = 'circle' // Currently selected tool "circle", "square", "eraser")
