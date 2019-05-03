@@ -36,18 +36,20 @@ export default class Game {
   async startGame () {
     this.gameState.isGameStarted = true
     const turnQueue = [...this.gameState.players, ...this.gameState.players]
-    const wordbank = wordBank()
+    let wordbank = wordBank()
     this.gameState.currentWord = wordbank.shift()
 
     while (turnQueue.length > 0) {
       const potentialDrawer = turnQueue.shift()
       if (this.gameState.players.includes(potentialDrawer)) {
         this.gameState.drawer = potentialDrawer
+        if (wordbank.length === 0) {
+          wordbank = wordBank()
+        }
         this.gameState.currentWord = wordbank.shift()
       } else {
         continue
       }
-      // get element from word bank that has not been picked before
 
       this.startTimer(60)
       await sleep(63000)
