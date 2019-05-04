@@ -62,9 +62,9 @@ export default class Game {
         await sleep(60000)
         this.shouldScorePoints = false
         if(turnQueue.length > 1){
-          this.room.systemChat("Turn is over! There are " + turnQueue.length + " more turns!")
+          this.room.systemChat(`Round over! The word was ${this.gameState.currentWord}! There are ${turnQueue.length} more rounds!`)
         }else if(turnQueue.length == 1){
-          this.room.systemChat("Turn is over! There is " + turnQueue.length + " more turn!")
+          this.room.systemChat(`Round over! The word was ${this.gameState.currentWord}! There is ${turnQueue.length} more round!`)
         }
         await sleep(5000)
         this.pointsForTheRound = {}
