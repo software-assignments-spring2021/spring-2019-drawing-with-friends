@@ -4,9 +4,10 @@ import wordBank from './utils/wordbank'
 import calculatePoints from './utils/calculatePoints'
 
 export default class Game {
-  constructor (server, roomId) {
+  constructor (server, roomId, room) {
     this.server = server
     this.roomId = roomId
+    this.room = room
     this.timeRemaining = 0
     this.pointsForTheRound = {}
     this.shouldScorePoints = false
@@ -39,13 +40,14 @@ export default class Game {
   async startGame () {
     if (!this.gameState.isGameStarted) {
       this.gameState.isGameStarted = true
-      const turnQueue = [...this.gameState.players, ...this.gameState.players]
+      const turnQueue = getRandomizedQueue()
       let wordbank = wordBank()
 
       while (turnQueue.length > 0) {
         const potentialDrawer = turnQueue.shift()
         if (this.gameState.players.includes(potentialDrawer)) {
           this.gameState.drawer = potentialDrawer
+          this.room.systemChat("It is " + this.gameState.drawer.name + "'s turn to draw!")
           if (wordbank.length === 0) {
             wordbank = wordBank()
           }
@@ -59,11 +61,18 @@ export default class Game {
         this.startTimer(60)
         await sleep(60000)
         this.shouldScorePoints = false
+        if(turnQueue.length > 1){
+          this.room.systemChat(`Round over! The word was ${this.gameState.currentWord}! There are ${turnQueue.length} more rounds!`)
+        }else if(turnQueue.length == 1){
+          this.room.systemChat(`Round over! The word was ${this.gameState.currentWord}! There is ${turnQueue.length} more round!`)
+        }
         await sleep(5000)
         this.pointsForTheRound = {}
       }
-
       this.gameState.isGameOver = true
+      this.room.systemChat("Game is over, thanks for playing!")
+    } else {
+      this.room.systemChat("A game is already underway!")
     }
   }
 
@@ -101,5 +110,15 @@ export default class Game {
       }
       this.server.in(this.roomId).emit('timer-update', this.timeRemaining)
     }, 1000)
+  }
+
+  // Gives each player 3 turns of drawing if less than 4 players
+  // Or 2 drawing turns each when 4 players or more
+  getRandomizedQueue () {
+    if(this.gameState.players.length < 4){
+      return [...this.gameState.players, ...this.gameState.players, ...this.gameState.players]
+    } else {
+      return [...this.gameState.players, ...this.gameState.players]
+    }
   }
 }

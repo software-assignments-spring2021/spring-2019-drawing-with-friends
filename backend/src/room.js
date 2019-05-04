@@ -14,6 +14,15 @@ export default class Room {
     this.server.in(this.roomId).emit('chat-update', this.chatMessages)
   }
 
+  systemChat (systemMessage) {
+    this.chatMessages.push({
+      name: "System",
+      message: systemMessage,
+      isSystem: true
+    })
+    this.server.in(this.roomId).emit('chat-update', this.chatMessages)
+  }
+
   getChatHistory () {
     this.server.in(this.roomId).emit('chat-update', this.chatMessages)
   }

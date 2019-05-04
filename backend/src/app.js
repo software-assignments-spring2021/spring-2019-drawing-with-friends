@@ -4,8 +4,6 @@ import Room from './room'
 const port = process.env.PORT || 3000
 const server = io.listen(port)
 
-let history = []
-
 // provides quick access to rooms by their IDs
 const rooms = {}
 
@@ -53,12 +51,7 @@ server.on('connection', (socket) => {
     if (playersRooms[socket.id]) server.to(socket.id).emit('game-update', playersRooms[socket.id].gameSession.gameState)
   })
 
-  if (history.length !== 0) {
-    socket.emit('history', history)
-  }
-
   socket.on('draw', (data) => {
-    history.push(data)
     if (playersRooms[socket.id] &&
         playersRooms[socket.id].gameSession.gameState.drawer &&
         playersRooms[socket.id].gameSession.gameState.drawer.playerId === socket.id
@@ -68,22 +61,12 @@ server.on('connection', (socket) => {
   })
 
   socket.on('erase-all', () => {
-    history = []
     if (playersRooms[socket.id] &&
         playersRooms[socket.id].gameSession.gameState.drawer &&
         playersRooms[socket.id].gameSession.gameState.drawer.playerId === socket.id
     ) {
       if (playersRooms[socket.id]) server.to(playersRooms[socket.id].roomId).emit('erase-all')
     }
-  })
-
-  socket.on('undo', () => {
-    let draw = history.pop()
-    socket.broadcast('undo', draw)
-  })
-
-  socket.on('recalibrate', () => {
-    socket.broadcast('history', history)
   })
 
   socket.on('disconnect', () => {
