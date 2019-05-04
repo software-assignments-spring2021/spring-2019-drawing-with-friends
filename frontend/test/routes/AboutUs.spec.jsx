@@ -39,7 +39,7 @@ describe('About Us section', function () {
             combination brought together a bunch of innovative minds with years of experience in the
             field of
             Computer
-            Science, forming the best source of entertaining on the web.</p>
+            Science, forming the best source of entertainment on the web.</p>
     expect(wrapper.contains(drawingWithFriendsParagraph)).to.equal(true)
   })
 })
