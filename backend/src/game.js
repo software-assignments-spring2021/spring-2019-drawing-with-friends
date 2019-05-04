@@ -40,7 +40,7 @@ export default class Game {
   async startGame () {
     if (!this.gameState.isGameStarted) {
       this.gameState.isGameStarted = true
-      const turnQueue = [...this.gameState.players, ...this.gameState.players]
+      const turnQueue = getRandomizedQueue()
       let wordbank = wordBank()
 
       while (turnQueue.length > 0) {
@@ -61,11 +61,16 @@ export default class Game {
         this.startTimer(60)
         await sleep(60000)
         this.shouldScorePoints = false
+        if(turnQueue.length > 1){
+          this.room.systemChat("Turn is over! There are " + turnQueue.length + " more turns!")
+        }else if(turnQueue.length == 1){
+          this.room.systemChat("Turn is over! There is " + turnQueue.length + " more turn!")
+        }
         await sleep(5000)
         this.pointsForTheRound = {}
       }
-
       this.gameState.isGameOver = true
+      this.room.systemChat("Game is over, thanks for playing!")
     } else {
       this.room.systemChat("A game is already underway!")
     }
@@ -107,19 +112,13 @@ export default class Game {
     }, 1000)
   }
 
-  // Once the room is created to host this game session, the game session should be aware
-  // of the room's existence too
-  assignRoom (room) {
-    this.room = room
-  }
-
   // Gives each player 3 turns of drawing if less than 4 players
   // Or 2 drawing turns each when 4 players or more
-  calculateTotalRounds (numberOfPlayers) {
-    if(numberOfPlayers < 4){
-      return numberOfPlayers * 3
+  getRandomizedQueue () {
+    if(this.gameState.players.length < 4){
+      return [...this.gameState.players, ...this.gameState.players, ...this.gameState.players]
     } else {
-      return numberOfPlayers * 2
+      return [...this.gameState.players, ...this.gameState.players]
     }
   }
 }
