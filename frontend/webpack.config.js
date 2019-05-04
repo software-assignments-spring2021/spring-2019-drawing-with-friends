@@ -34,8 +34,7 @@ module.exports = {
       filename: './index.html'
     }),
     new CopyPlugin([
-      { from: './src/css', to: './css' },
-      { from: './src/videos', to: './videos' }
+      { from: './src/css', to: './css' }
     ]),
     new ErrorOverlayPlugin()
   ],
