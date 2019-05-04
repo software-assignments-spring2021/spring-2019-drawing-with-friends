@@ -40,7 +40,7 @@ export default class Game {
   async startGame () {
     if (!this.gameState.isGameStarted) {
       this.gameState.isGameStarted = true
-      const turnQueue = getRandomizedQueue()
+      const turnQueue = this.getRandomizedQueue()
       let wordbank = wordBank()
 
       while (turnQueue.length > 0) {
@@ -61,10 +61,14 @@ export default class Game {
         this.startTimer(60)
         await sleep(60000)
         this.shouldScorePoints = false
-        if(turnQueue.length > 1){
-          this.room.systemChat(`Round over! The word was ${this.gameState.currentWord}! There are ${turnQueue.length} more rounds!`)
-        }else if(turnQueue.length == 1){
-          this.room.systemChat(`Round over! The word was ${this.gameState.currentWord}! There is ${turnQueue.length} more round!`)
+        if (turnQueue.length > 1) {
+          this.room.systemChat(
+              `Round over! The word was ${this.gameState.currentWord}! There are ${turnQueue.length} more rounds!`
+          )
+        } else if(turnQueue.length === 1) {
+          this.room.systemChat(
+              `Round over! The word was ${this.gameState.currentWord}! There is ${turnQueue.length} more round!`
+          )
         }
         await sleep(5000)
         this.pointsForTheRound = {}
@@ -112,8 +116,6 @@ export default class Game {
     }, 1000)
   }
 
-  // Gives each player 3 turns of drawing if less than 4 players
-  // Or 2 drawing turns each when 4 players or more
   getRandomizedQueue () {
     if(this.gameState.players.length < 4){
       return [...this.gameState.players, ...this.gameState.players, ...this.gameState.players]

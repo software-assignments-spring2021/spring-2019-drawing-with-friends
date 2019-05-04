@@ -24,13 +24,13 @@ class Chat extends React.Component {
 
   renderChatMessages () {
     const messages = this.state.chatMessages.map((message, index) => {
-      if("isSystem" in message && message.isSystem == true){
+      if ('isSystem' in message && message.isSystem) {
         return (
-          <p key={index} style="color:red">
-            {message.name}: {message.message}
+          <p key={index} style={{ color: 'red' }}>
+            🎨 {message.message}
           </p>
         )
-      }else{
+      } else {
         return (
           <p key={index}>
             {message.name}: {message.message}

@@ -4,7 +4,7 @@ export default class Room {
   constructor (roomId, roomCreator, server, roomCreatorName) {
     this.server = server
     this.roomId = roomId
-    this.gameSession = new Game(this.server, this.roomId)
+    this.gameSession = new Game(this.server, this.roomId, this)
     this.gameSession.addPlayer(roomCreator, roomCreatorName)
     this.chatMessages = []
   }
@@ -16,7 +16,7 @@ export default class Room {
 
   systemChat (systemMessage) {
     this.chatMessages.push({
-      name: "System",
+      name: 'System',
       message: systemMessage,
       isSystem: true
     })
