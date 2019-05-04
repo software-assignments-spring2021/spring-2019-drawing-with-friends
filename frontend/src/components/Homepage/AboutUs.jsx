@@ -19,7 +19,7 @@ export default class AboutUs extends React.Component {
 
           <p>Drawing With Friends was founded in the February of 2019 by a professor of Computer Science. The resulting
             combination brought together a bunch of innovative minds with years of experience in the field of Computer
-            Science, forming the best source of entertaining on the web.
+            Science, forming the best source of entertainment on the web.
           </p>
         </div>
       </div>
