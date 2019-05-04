@@ -24,9 +24,9 @@ export default class Instructions extends React.Component {
             <h3>How to Play</h3>
             <img src={twoPencilsLogo} alt='Two pencils icon' className='formatImages'/>
             <ul>
-              <li>One player is selected be the artist and assign to draw a random word</li>
+              <li>One player is selected be the artist and assigned to draw a random word</li>
               <li>Other players in the game must guess what the drawing is by typing guesses into chat</li>
-              <li>If you guess correctly, your guess will be censored in the chat so other players are not given
+              <li>If you guess correctly, your guess will be censored in chat so other players are not given
                 the answer. You will get points for guessing correctly</li>
               <li>The faster you guess the correct answer, the more points you earn</li>
               <li>The artist will receive 100 points for each person that correctly guesses their drawing</li>
