@@ -92,6 +92,7 @@ export default class Game {
         this.gameState.players = players.map((player) => {
           if (player.playerId === socketId) {
             player.score += this.pointsForTheRound[socketId]
+            this.gameState.drawer.score += 100
           }
           return player
         })
