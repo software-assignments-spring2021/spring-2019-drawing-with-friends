@@ -38,7 +38,7 @@ export default class Game {
   }
 
   async startGame () {
-    if (!this.gameState.isGameStarted) {
+    if (!this.gameState.isGameStarted && this.gameState.players.length > 2) {
       this.gameState.isGameStarted = true
       const turnQueue = this.getRandomizedQueue()
       let wordbank = wordBank()
@@ -76,7 +76,7 @@ export default class Game {
       this.gameState.isGameOver = true
       this.room.systemChat("Game is over, thanks for playing!")
     } else {
-      this.room.systemChat("A game is already underway!")
+      this.room.systemChat("You need at least 3 players to start the game")
     }
   }
 

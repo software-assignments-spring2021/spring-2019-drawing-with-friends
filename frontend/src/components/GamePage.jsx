@@ -5,7 +5,7 @@ import Chat from './Chat.jsx'
 import { Redirect } from 'react-router-dom'
 import playerComparator from '../utils/PlayersComparator'
 
-class GamePage extends React.Component {
+export default class GamePage extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -94,12 +94,24 @@ class GamePage extends React.Component {
       : <h4>Share this code with your friends: {this.props.roomId}</h4>
   }
 
+  renderDrawerIcon (playerId) {
+    return this.state.gameState.drawer && playerId === this.state.gameState.drawer.playerId ? '🖌️' : ''
+  }
+
   renderPlayers () {
     return this.state.gameState.players.sort(playerComparator).map((player) => {
       return this.state.gameState.isGameStarted
-        ? <p key={player.playerId}>{player.name}: {player.score}</p>
+        ? <p key={player.playerId}>{this.renderDrawerIcon(player.playerId)} {player.name}: {player.score}</p>
         : <p key={player.playerId}>{player.name}</p>
     })
+  }
+
+  renderStartButton () {
+    return !this.state.gameState.isGameStarted ? <button onClick={this.startGame}>Start Game</button> : ''
+  }
+
+  renderTimer () {
+    return this.state.timerObject.timeRemaining > 0 ? `Time Left: ${this.state.timerObject.timeRemaining}` : ''
   }
 
   render () {
@@ -118,13 +130,11 @@ class GamePage extends React.Component {
             <div className='playerNames'>
               {this.renderPlayers()}
             </div>
-            <button onClick={this.startGame}>Start Game</button>
+            {this.renderStartButton()}
           </div>
-          <h4>{this.state.timerObject.timeRemaining}</h4>
+          <h4>{this.renderTimer()}</h4>
         </div>
       </>
     )
   }
 }
-
-export default GamePage

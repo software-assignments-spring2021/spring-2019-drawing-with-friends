@@ -10,17 +10,15 @@ import Homepage from './components/Homepage/Homepage.jsx'
 class App extends React.Component {
   render () {
     return (
-      <React.Fragment>
+      <>
         <NavigationBar/>
-
         <Switch>
           <Route path='/create' component={CreatePage}/>
           <Route path='/join' component={JoinPage}/>
           <Route path='/' component={Homepage}/>
         </Switch>
-
         <Footer/>
-      </React.Fragment>
+      </>
     )
   }
 }
