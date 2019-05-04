@@ -74,7 +74,7 @@ export default class Game {
         this.pointsForTheRound = {}
       }
       this.gameState.isGameOver = true
-      this.room.systemChat("Game is over, thanks for playing!")
+      this.room.systemChat(`Game is over, thanks for playing! The last word was ${this.gameState.currentWord}!`)
     } else {
       this.room.systemChat("You need at least 3 players to start the game")
     }
