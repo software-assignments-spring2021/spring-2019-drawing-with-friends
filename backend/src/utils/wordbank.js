@@ -8,7 +8,7 @@ export default function () {
     'pineapple', 'orange', 'watermelon', 'lemon', 'kiwi', 'avocado', 'durian', 'cucumber', 'tomato', 'doctor',
     'teacher', 'firefighter', 'police', 'farmer', 'janitor', 'athlete', 'chef', 'lifeguard', 'president', 'librarian',
     'sumo wrestler', 'soldier', 'babysitter', 'computer', 'mermaid', 'dragon', 'clown', 'lollipop', 'pacifier',
-    'fire', 'water', 'earth', 'air', 'crab', 'popsicle', 'river', 'baby', 'time', 'unicorn', 'zoo', 'music','eclipse',
+    'fire', 'water', 'earth', 'air', 'crab', 'popsicle', 'river', 'baby', 'time', 'unicorn', 'zoo', 'music', 'eclipse',
     'phone', 'lightning', 'maze', 'meteor', 'marshmallow', 'moon', 'rice', 'tiger', 'laser', 'dizzy', 'ghost',
     'monkey', 'octopus', 'spider man', 'iron man', 'hulk', 'thanos', 'thor', 'pikachu'
   ].sort(() => Math.random() - 0.5)
