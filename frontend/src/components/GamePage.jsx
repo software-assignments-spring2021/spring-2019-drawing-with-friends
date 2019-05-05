@@ -34,14 +34,22 @@ export default class GamePage extends React.Component {
     this.props.socket.emit('get-game-update')
   }
 
+  shouldComponentUpdate (_nextProps, nextState) {
+    if (this.state.gameState.isGameOver) {
+      if (nextState.gameState.players.length !== this.state.gameState.players.length) {
+        return false
+      }
+    }
+    return true
+  }
+
   showModal () {
     return (
       <div className='instructionsModal'>
         <div className='instructionsModalContent'>
           <h4>{`What's This?`}</h4>
           <p>This is the staging area where you can wait for your friends to join.</p>
-          <p>{`You can practice drawing on the canvas on this page and chat with your friends. 
-            When you're ready to start, press "Start Game"!`}</p>
+          <p>{`Once the room has four players (including yourself), any one can press "Start Game" to start!`}</p>
           <button onClick={this.closeModal}>Got it!</button>
         </div>
       </div>
