@@ -10,8 +10,18 @@ export default class Room {
   }
 
   chat (chatMessage, socketId) {
-    this.chatMessages.push(this.gameSession.verifyChat(chatMessage, socketId))
-    this.server.in(this.roomId).emit('chat-update', this.chatMessages)
+    // Make sure incoming messages are less than 128 characters
+    // This should've been filtered on the client side
+    if(chatMessage.message.length <= 128){
+      this.chatMessages.push(this.gameSession.verifyChat(chatMessage, socketId))
+      this.server.in(this.roomId).emit('chat-update', this.chatMessages)
+    }
+
+    // Clean chat messages because of memory constraint
+    // Clients will be updated with the new server chat messages, no need to implement this client side
+    while(this.chatMessages.length > 250){
+      this.chatMessages.shift()
+    }
   }
 
   systemChat (systemMessage) {
