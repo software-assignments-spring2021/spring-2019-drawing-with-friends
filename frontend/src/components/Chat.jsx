@@ -51,10 +51,8 @@ class Chat extends React.Component {
         name: this.props.playerName,
         message: this.state.chatInputValue
       })
-      this.setState({ chatInputValue: '' })
-    } else {
-      this.setState({ chatInputValue: '' })
-    }
+    } 
+    this.setState({ chatInputValue: '' })
   }
 
   render () {
