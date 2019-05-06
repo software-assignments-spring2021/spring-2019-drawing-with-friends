@@ -49,7 +49,7 @@ export default class GamePage extends React.Component {
         <div className='instructionsModalContent'>
           <h4>{`What's This?`}</h4>
           <p>This is the staging area where you can wait for your friends to join.</p>
-          <p>{`Once the room has four players (including yourself), any one can press "Start Game" to start!`}</p>
+          <p>{`Once the room has three players (including yourself), any one can press "Start Game" to start!`}</p>
           <button onClick={this.closeModal}>Got it!</button>
         </div>
       </div>
