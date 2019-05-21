@@ -40,15 +40,21 @@ Run tests: `npm test`
 * Rebecca Hom
 
 ## Installation
-### Frontend
-1. Install modules `npm install`
-2. Start development server `npm start`
+To run the project locally, you'll need to run both the frontend and backend at the same time. It 
+is recommended that you start the backend before the frontend. You will need to have Node.js installed 
+on your computer to run the project.
+
+### Run Frontend Locally
+1. Change directory to frontend `cd frontend`
+2. Install modules `npm install`
+3. Start development server `npm start`
 
 - To build: `npm run build`
 - To lint: `npm run lint`
 
-### Backend
-1. Install modules `npm install`
+### Run Backend Locally
+1. Change directory to backend `cd backend`
+2. Install modules `npm install`
 2. Start development server `npm run start-dev`
 
 - To build: `npm run build`
