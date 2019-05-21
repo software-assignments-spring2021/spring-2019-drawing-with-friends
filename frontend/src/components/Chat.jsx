@@ -46,13 +46,13 @@ class Chat extends React.Component {
 
   sendMessage (e) {
     e.preventDefault()
-    if (this.state.chatInputValue) {
+    if (this.state.chatInputValue && this.state.chatInputValue.length <= 128) {
       this.props.socket.emit('chat', {
         name: this.props.playerName,
         message: this.state.chatInputValue
       })
-      this.setState({ chatInputValue: '' })
-    }
+    } 
+    this.setState({ chatInputValue: '' })
   }
 
   render () {
@@ -62,7 +62,7 @@ class Chat extends React.Component {
         <form id="chat-input" onSubmit={this.sendMessage.bind(this)} >
           <input
             type="text"
-            placeholder='Chat here...'
+            placeholder='Chat here... 128 char limit'
             onChange={this.handleChange.bind(this)}
             value={this.state.chatInputValue}
           />
